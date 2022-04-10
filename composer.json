@@ -1,6 +1,6 @@
 {
     "name": "outofoffice/password-generator",
-    "description": "A Laravel Nova field.",
+    "description": "Random Password Generation Field for Laravel Nova",
     "keywords": [
         "laravel",
         "nova"
