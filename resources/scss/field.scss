@@ -1,0 +1,147 @@
+.password-generator {
+    & > :last-child {
+        display        : flex;
+        flex-direction : column;
+
+        @media (min-width : 640px) {
+            flex-direction : row;
+        }
+
+        @media (min-width : 768px) {
+            flex-direction : column;
+        }
+
+        @media (min-width : 1280px) {
+            flex-direction : row;
+        }
+    }
+
+    input:focus {
+        position : relative;
+        z-index  : 9;
+    }
+
+    input[type=text] {
+        font-family : ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+    }
+
+    .pg-password-input {
+        &.pg-with-extras {
+            border-radius : 0.25rem 0.25rem 0 0;
+
+            @media (min-width : 640px) {
+                border-radius : 0.25rem 0 0 0.25rem;
+            }
+
+            @media (min-width : 768px) {
+                border-radius : 0.25rem 0.25rem 0 0;
+            }
+
+            @media (min-width : 1280px) {
+                border-radius : 0.25rem 0 0 0.25rem;
+            }
+        }
+    }
+
+    .pg-increment {
+        display         : flex;
+        align-items     : center;
+        justify-content : space-between;
+        width           : 100%;
+
+
+        .pg-password-length {
+            display     : flex;
+            outline     : none;
+            text-align  : center;
+            font-weight : 600;
+            padding     : 0 0.25rem;
+            width       : auto;
+        }
+    }
+
+    ul.pg-options {
+        display : flex;
+        padding : 0;
+        margin  : 0;
+        height  : 36px;
+
+        li.pg-option {
+            display           : inline-flex;
+            align-items       : center;
+            justify-content   : center;
+            padding           : 0 0.6rem;
+            border-top-width  : 0;
+            border-left-width : 0;
+            cursor            : pointer;
+            user-select       : none;
+            width             : 100%;
+
+            &.pg-pill-wrapper {
+                padding : 0 0.3rem;
+            }
+
+            ul.pg-pill-options {
+                display     : flex;
+                align-items : center;
+                border-left : none;
+                cursor      : pointer;
+                user-select : none;
+                padding     : 0;
+                margin      : 0;
+
+                .pg-pill-option {
+                    padding : 0.25rem;
+
+                    &.pg-enabled { border-radius : 0.5rem; }
+                }
+            }
+
+            &:first-child {
+                border-left-width         : 1px;
+                border-bottom-left-radius : 0.25rem;
+            }
+
+            &:last-child {
+                border-bottom-right-radius : 0.25rem;
+                border-top-right-radius    : 0;
+            }
+
+            @media (min-width : 640px) {
+                border-top-width : 1px;
+                &:first-child {
+                    border-left-width         : 0;
+                    border-bottom-left-radius : 0;
+                }
+                &:last-child {
+                    border-top-right-radius    : 0.25rem;
+                    border-bottom-right-radius : 0.25rem;
+                }
+            }
+
+            @media (min-width : 768px) {
+                border-top-width : 0;
+                &:first-child {
+                    border-left-width         : 1px;
+                    border-bottom-left-radius : 0.25rem;
+                }
+                &:last-child {
+                    border-top-right-radius    : 0;
+                    border-bottom-right-radius : 0.25rem;
+                }
+            }
+
+            @media (min-width : 1280px) {
+                border-top-width : 1px;
+                &:first-child {
+                    border-left-width         : 0;
+                    border-bottom-left-radius : 0;
+                }
+                &:last-child {
+                    border-top-right-radius    : 0.25rem;
+                    border-bottom-right-radius : 0.25rem;
+                }
+            }
+        }
+    }
+}
