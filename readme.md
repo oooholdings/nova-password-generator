@@ -1,4 +1,4 @@
-![Password Generator Field for Laravel Nova](banner.jpeg)
+![Password Generator Field for Laravel Nova](demo.gif)
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
