@@ -1,4 +1,4 @@
-![Password Generator Field for Laravel Nova](demo.gif)
+![Password Generator Field for Laravel Nova](banner.jpg)
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
@@ -21,8 +21,10 @@
 
 ## Introduction
 
-Password Generator is a custom field for Laravel Nova, allowing you to add a password generator when creating or
+Password Generator is a custom field for Laravel Nova (v4), allowing you to add a password generator when creating or
 updating resources.
+
+![Password Generator Field Preview](preview.jpg)
 
 Currently, you can show and hide the password. Include or exclude lowercase, uppercase, numbers and symbols from the
 generated passwords. Change the password length, minimum and maximum length or total length that respects the length of
@@ -84,15 +86,15 @@ public function fields()
 
         PasswordGenerator::make( 'Password' )
             // Password length, not respecting prefix or suffix length
-            ->length() // default: 16
+            ->length( int $length = 16 )
             // Overrides general length, respects prefix or suffix length
-            ->totalLength() // default: 24
+            ->totalLength( int $length = 24 )
             // Generated passwords will be minimum of this value
-            ->minLength() // default: 8
+            ->minLength( int $minLength = 8 )
             // Generated passwords will be maximum of this value
-            ->maxLength() // default: 128
+            ->maxLength( int $maxLength = 128 )
             // Length should increment by this value when changing length via field
-            ->lengthIncrementSteps(), // default: 4
+            ->lengthIncrementSteps( int $lengthSteps = 4 ),
 
     ];
 }
@@ -117,9 +119,7 @@ public function fields()
             // Generated passwords will start with this value (e.g. 'ooo.jX90')
             ->prefix( 'ooo.' ) // default: ''
             // Generated passwords will end with this value (e.g. 'jX90.ooo')
-            ->suffix( '.ooo' ) // default: ''
-            // This will do the same as `suffix()`, just added for completeness 
-            ->postfix( '.ooo' ), // default: ''
+            ->suffix( '.ooo' ), // default: ''
 
     ];
 }
@@ -142,19 +142,17 @@ public function fields()
         PasswordGenerator::make( 'Password' )
             // Hide all toolbar elements, or combo this method with other
             // methods to display only one or two elements
-            ->hideAllExtras() // default: true
+            ->hideAllExtras( bool $hide = true )
             // Hide the show password button from the toolbar, or don't
-            ->hideShowPasswordToggle() // default: true
+            ->hideShowPasswordToggle( bool $hide = true )
             // Hide the password generation options from the toolbar, or don't
-            ->hideOptionsToggles() // default: true
+            ->hideOptionsToggles( bool $hide = true )
             // Hide the password length input from the toolbar, or don't
-            ->hideLengthInput() // default: true
+            ->hideLengthInput( bool $hide = true )
             // Hide the copy password button from the toolbar, or don't
-            ->hideCopyPasswordButton() // default: true
+            ->hideCopyPasswordButton( bool $hide = true )
             // Hide the refresh/regenerate password button from the toolbar, or don't
-            ->hideRegenerateButton() // default: true
-            // Should the password be regenerated when an option is changed
-            ->regenerateOnToggle(), // default: true
+            ->hideRegenerateButton( bool $hide = true ),
 
     ];
 }
@@ -176,23 +174,19 @@ public function fields()
 
         PasswordGenerator::make( 'Password' )
             // Included by default, you can exclude all lowercase characters (e.g. abc)
-            ->lowercase() // default: true
+            ->lowercase( bool $enabled = true ) // default: true
             // Included by default, you can exclude all uppercase characters (e.g. ABC)
-            ->uppercase() // default: true
+            ->uppercase( bool $enabled = true ) // default: true
             // Included by default, you can exclude all numbers characters (e.g. 123)
-            ->numbers() // default: true
+            ->numbers( bool $enabled = true ) // default: true
             // Included by default, you can exclude all symbols characters (e.g. $@!)
-            ->symbols() // default: true
+            ->symbols( bool $enabled = true ) // default: true
             // Excluded by default, you can exclude characters that may look similar
             // (e.g. "i, l, 1, L, o, 0, O")
-            ->excludeSimilar() // default: true
-            // or use this method to do the opposite
-            ->includeSimilar() // default: true
+            ->excludeSimilar( bool $exclude = true )
             // Excluded by default, you can exclude ambiguous symbols
             // (e.g. "{ } [ ] ( ) / \ ' " ` ~ , ; : . < >")
-            ->excludeAmbiguous() // default: true
-            // or use this method to do the opposite
-            ->includeAmbiguous(), // default: true
+            ->excludeAmbiguous( bool $exclude = true ),
 
     ];
 }
@@ -215,10 +209,39 @@ public function fields()
         PasswordGenerator::make( 'Password' )
             // Disabled by default, will fill input with generated password on load
             // only when creating a new resource.
-            ->fillOnCreate() // default: true
+            ->fillOnCreate( bool $enabled = true )
             // Disabled by default, will fill input with generated password on load
             // only when updating a new resource.
-            ->fillOnUpdate(), // default: true
+            ->fillOnUpdate( bool $enabled = true ),
+
+    ];
+}
+```
+
+### Other Methods
+
+Just a list of other miscellaneous methods to control smaller features.
+
+```php
+// in app/Nova/[Resource].php
+
+use OutOfOffice\PasswordGenerator\PasswordGenerator;
+
+public function fields()
+{
+    return [
+
+        PasswordGenerator::make( 'Password' )
+            // Show the password as plain-text in the password field by default
+            ->showPassword( bool $show = true )
+            // Should the password be regenerated when an option is changed
+            ->regenerateOnToggle( bool $enabled = true )
+            // Should the toolbar be placed above the password field
+            ->toolbarOnTop( bool $toolbarOnTop = true )
+            // Should the password field always be the mobile version
+            // otherwise, it'll switch between being on the bottom/top and the right side
+            // depending on where it would look best based on the devices window size
+            ->mobileFirstAlways( bool $mobileFirstAlways = true ),
 
     ];
 }
@@ -228,7 +251,6 @@ public function fields()
 
 - [Out of Office][link-company]
 - [Miguel Batres][link-author]
-- [All Contributors][link-contributors]
 - [Package Banner][link-beyondcode-banners] by BeyondCode
 
 ## License

@@ -32,32 +32,6 @@ class PasswordGenerator extends Field
     }
 
     /**
-     * Fill password field with generated password when creating resource.
-     *
-     * @param bool $enabled
-     * @return PasswordGenerator
-     */
-    public function fillOnCreate( bool $enabled = true ): PasswordGenerator
-    {
-        return $this->withMeta( [
-            'fillOnCreate' => $enabled,
-        ] );
-    }
-
-    /**
-     * Fill password field with generated password when updating resource.
-     *
-     * @param bool $enabled
-     * @return PasswordGenerator
-     */
-    public function fillOnUpdate( bool $enabled = true ): PasswordGenerator
-    {
-        return $this->withMeta( [
-            'fillOnUpdate' => $enabled,
-        ] );
-    }
-
-    /**
      * Set the length of the generated password.
      *
      * @param int $length
@@ -67,6 +41,20 @@ class PasswordGenerator extends Field
     {
         return $this->withMeta( [
             'passwordLength' => $length,
+        ] );
+    }
+
+    /**
+     * Set the total length of the generated password
+     * respecting the prefix and suffix.
+     *
+     * @param int $length
+     * @return PasswordGenerator
+     */
+    public function totalLength( int $length = 24 ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'passwordTotalLength' => $length,
         ] );
     }
 
@@ -97,20 +85,6 @@ class PasswordGenerator extends Field
     }
 
     /**
-     * Set the total length of the generated password
-     * respecting the prefix and suffix/postfix.
-     *
-     * @param int $length
-     * @return PasswordGenerator
-     */
-    public function totalLength( int $length = 24 ): PasswordGenerator
-    {
-        return $this->withMeta( [
-            'passwordTotalLength' => $length,
-        ] );
-    }
-
-    /**
      * Set the step increment of the generated password.
      *
      * @param int $lengthSteps
@@ -120,95 +94,6 @@ class PasswordGenerator extends Field
     {
         return $this->withMeta( [
             'passwordIncrementSteps' => $lengthSteps,
-        ] );
-    }
-
-    /**
-     * Exclude similar characters in password charlist.
-     * e.g. "i, l, 1, L, o, 0, O"
-     *
-     * @param bool $exclude
-     * @return PasswordGenerator
-     */
-    public function excludeSimilar( bool $exclude = true ): PasswordGenerator
-    {
-        return $this->withMeta( [
-            'excludeSimilar' => $exclude,
-        ] );
-    }
-
-    /**
-     * Include similar characters in password charlist.
-     * e.g. "i, l, 1, L, o, 0, O"
-     *
-     * @param bool $include
-     * @return PasswordGenerator
-     */
-    public function includeSimilar( bool $include = true ): PasswordGenerator
-    {
-        return $this->excludeSimilar( !$include );
-    }
-
-    /**
-     * Exclude ambiguous symbols in password charlist.
-     * e.g. "{ } [ ] ( ) / \ ' " ` ~ , ; : . < >"
-     *
-     * @param bool $exclude
-     * @return PasswordGenerator
-     */
-    public function excludeAmbiguous( bool $exclude = true ): PasswordGenerator
-    {
-        return $this->withMeta( [
-            'excludeAmbiguous' => $exclude,
-        ] );
-    }
-
-    /**
-     * Include ambiguous symbols in password charlist.
-     * e.g. "{ } [ ] ( ) / \ ' " ` ~ , ; : . < >"
-     *
-     * @param bool $include
-     * @return PasswordGenerator
-     */
-    public function includeAmbiguous( bool $include = true ): PasswordGenerator
-    {
-        return $this->excludeAmbiguous( !$include );
-    }
-
-    /**
-     * Disable password hiding by default.
-     *
-     * @param bool $show
-     * @return PasswordGenerator
-     */
-    public function showPassword( bool $show = true ): PasswordGenerator
-    {
-        return $this->withMeta( [
-            'showPassword' => $show,
-        ] );
-    }
-
-    /**
-     * Enable password hiding by default.
-     *
-     * @param bool $hide
-     * @return PasswordGenerator
-     */
-    public function hidePassword( bool $hide = true ): PasswordGenerator
-    {
-        return $this->showPassword( !$hide );
-    }
-
-    /**
-     * Whether to regenerate the password when an option is toggled.
-     *
-     * @param bool $enabled
-     * @return PasswordGenerator
-     */
-    public function regenerateOnToggle( bool $enabled = true ): PasswordGenerator
-    {
-        return $this->withMeta( [
-            'regenerateOnToggle' => $enabled,
         ] );
     }
 
@@ -239,65 +124,19 @@ class PasswordGenerator extends Field
     }
 
     /**
-     * Add suffix to the generated passwords.
+     * Hide copy password button in password field ui.
      *
-     * @param string $postfix
+     * @param bool $hide
      * @return PasswordGenerator
      */
-    public function postfix( string $postfix = '' ): PasswordGenerator
-    {
-        return $this->suffix( $postfix );
-    }
-
-    /**
-     * Whether lowercase characters should be enabled by default.
-     *
-     * @param bool $enabled
-     * @return PasswordGenerator
-     */
-    public function lowercase( bool $enabled = true ): PasswordGenerator
+    public function hideAllExtras( bool $hide = true ): PasswordGenerator
     {
         return $this->withMeta( [
-            'lowercaseToggled' => $enabled,
-        ] );
-    }
-
-    /**
-     * Whether uppercase characters should be enabled by default.
-     *
-     * @param bool $enabled
-     * @return PasswordGenerator
-     */
-    public function uppercase( bool $enabled = true ): PasswordGenerator
-    {
-        return $this->withMeta( [
-            'uppercaseToggled' => $enabled,
-        ] );
-    }
-
-    /**
-     * Whether numbers characters should be enabled by default.
-     *
-     * @param bool $enabled
-     * @return PasswordGenerator
-     */
-    public function numbers( bool $enabled = true ): PasswordGenerator
-    {
-        return $this->withMeta( [
-            'numbersToggled' => $enabled,
-        ] );
-    }
-
-    /**
-     * Whether symbols characters should be enabled by default.
-     *
-     * @param bool $enabled
-     * @return PasswordGenerator
-     */
-    public function symbols( bool $enabled = true ): PasswordGenerator
-    {
-        return $this->withMeta( [
-            'symbolsToggled' => $enabled,
+            'hideShowPasswordToggle'  => $hide,
+            'hideOptionsToggles'      => $hide,
+            'hidePasswordLengthInput' => $hide,
+            'hideCopyPasswordButton'  => $hide,
+            'hideRegenerateButton'    => $hide,
         ] );
     }
 
@@ -367,19 +206,160 @@ class PasswordGenerator extends Field
     }
 
     /**
-     * Hide copy password button in password field ui.
+     * Whether lowercase characters should be enabled by default.
      *
-     * @param bool $hide
+     * @param bool $enabled
      * @return PasswordGenerator
      */
-    public function hideAllExtras( bool $hide = true ): PasswordGenerator
+    public function lowercase( bool $enabled = true ): PasswordGenerator
     {
         return $this->withMeta( [
-            'hideShowPasswordToggle'  => $hide,
-            'hideOptionsToggles'      => $hide,
-            'hidePasswordLengthInput' => $hide,
-            'hideCopyPasswordButton'  => $hide,
-            'hideRegenerateButton'    => $hide,
+            'lowercaseToggled' => $enabled,
+        ] );
+    }
+
+    /**
+     * Whether uppercase characters should be enabled by default.
+     *
+     * @param bool $enabled
+     * @return PasswordGenerator
+     */
+    public function uppercase( bool $enabled = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'uppercaseToggled' => $enabled,
+        ] );
+    }
+
+    /**
+     * Whether numbers characters should be enabled by default.
+     *
+     * @param bool $enabled
+     * @return PasswordGenerator
+     */
+    public function numbers( bool $enabled = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'numbersToggled' => $enabled,
+        ] );
+    }
+
+    /**
+     * Whether symbols characters should be enabled by default.
+     *
+     * @param bool $enabled
+     * @return PasswordGenerator
+     */
+    public function symbols( bool $enabled = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'symbolsToggled' => $enabled,
+        ] );
+    }
+
+    /**
+     * Exclude similar characters in password charlist.
+     * e.g. "i, l, 1, L, o, 0, O"
+     *
+     * @param bool $exclude
+     * @return PasswordGenerator
+     */
+    public function excludeSimilar( bool $exclude = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'excludeSimilar' => $exclude,
+        ] );
+    }
+
+    /**
+     * Exclude ambiguous symbols in password charlist.
+     * e.g. "{ } [ ] ( ) / \ ' " ` ~ , ; : . < >"
+     *
+     * @param bool $exclude
+     * @return PasswordGenerator
+     */
+    public function excludeAmbiguous( bool $exclude = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'excludeAmbiguous' => $exclude,
+        ] );
+    }
+
+    /**
+     * Fill password field with generated password when creating resource.
+     *
+     * @param bool $enabled
+     * @return PasswordGenerator
+     */
+    public function fillOnCreate( bool $enabled = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'fillOnCreate' => $enabled,
+        ] );
+    }
+
+    /**
+     * Fill password field with generated password when updating resource.
+     *
+     * @param bool $enabled
+     * @return PasswordGenerator
+     */
+    public function fillOnUpdate( bool $enabled = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'fillOnUpdate' => $enabled,
+        ] );
+    }
+
+    /**
+     * Disable password hiding by default.
+     *
+     * @param bool $show
+     * @return PasswordGenerator
+     */
+    public function showPassword( bool $show = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'showPassword' => $show,
+        ] );
+    }
+
+    /**
+     * Whether to regenerate the password when an option is toggled.
+     *
+     * @param bool $enabled
+     * @return PasswordGenerator
+     */
+    public function regenerateOnToggle( bool $enabled = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'regenerateOnToggle' => $enabled,
+        ] );
+    }
+
+    /**
+     * Whether the toolbar should be shown above the password input field.
+     *
+     * @param bool $toolbarOnTop
+     * @return PasswordGenerator
+     */
+    public function toolbarOnTop( bool $toolbarOnTop = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'toolbarOnTop' => $toolbarOnTop,
+        ] );
+    }
+
+    /**
+     * Whether the password field should be responsive.
+     *
+     * @param bool $mobileFirstAlways
+     * @return PasswordGenerator
+     */
+    public function mobileFirstAlways( bool $mobileFirstAlways = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'responsive' => !$mobileFirstAlways,
         ] );
     }
 }
