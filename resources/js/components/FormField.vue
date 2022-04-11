@@ -2,13 +2,14 @@
     <DefaultField :field="field"
                   :errors="errors"
                   :show-help-text="showHelpText"
-                  class="password-generator">
+                  class="password-generator"
+                  :class="[ responsiveClasses, toolbarPositionClasses ]">
         <template #field>
             <input ref="passwordInput"
                    :id="field.attribute"
                    :type="showPassword ? 'text' : 'password'"
                    class="w-full form-control form-input form-input-bordered pg-password-input"
-                   :class="[ errorClasses, roundedCorners, ( allExtrasHidden() ? 'pg-extras-hidden' : 'pg-with-extras' ) ]"
+                   :class="[ errorClasses, passwordInputExtrasClasses ]"
                    :placeholder="field.name"
                    v-model="value" />
             <ul v-if="!allExtrasHidden()"
@@ -52,7 +53,7 @@
                             :class="toggled.lowercase ? classes.enabledPill : classes.disabledPill"
                             @click="toggleLowercase"
                             v-tooltip="toggled.lowercase ? tooltips.lowercase.enabled : tooltips.lowercase.disabled"
-                            :style="[toggled.lowercase && toggled.uppercase ? 'border-top-right-radius: 0; border-bottom-right-radius: 0;' : '']">
+                            :style="[ borderRadiusRightStyles( toggled.lowercase && toggled.uppercase ) ]">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="h-4 w-4"
                                  fill="none"
@@ -71,7 +72,7 @@
                             :class="toggled.uppercase ? classes.enabledPill : classes.disabledPill"
                             @click="toggleUppercase"
                             v-tooltip="toggled.uppercase ? tooltips.uppercase.enabled : tooltips.uppercase.disabled"
-                            :style="[toggled.lowercase && toggled.uppercase ? 'border-top-left-radius: 0; border-bottom-left-radius: 0;' : '', toggled.uppercase && toggled.numbers ? 'border-top-right-radius: 0; border-bottom-right-radius: 0;' : '' ]">
+                            :style="[ borderRadiusLeftStyles( toggled.lowercase && toggled.uppercase ), borderRadiusRightStyles( toggled.uppercase && toggled.numbers ) ]">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="h-4 w-4"
                                  fill="none"
@@ -88,7 +89,7 @@
                             :class="toggled.numbers ? classes.enabledPill : classes.disabledPill"
                             @click="toggleNumbers"
                             v-tooltip="toggled.numbers ? tooltips.numbers.enabled : tooltips.numbers.disabled"
-                            :style="[toggled.uppercase && toggled.numbers ? 'border-top-left-radius: 0; border-bottom-left-radius: 0;' : '', toggled.numbers && toggled.symbols ? 'border-top-right-radius: 0; border-bottom-right-radius: 0;' : '' ]">
+                            :style="[ borderRadiusLeftStyles( toggled.uppercase && toggled.numbers ), borderRadiusRightStyles( toggled.numbers && toggled.symbols ) ]">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="h-4 w-4"
                                  fill="none"
@@ -104,7 +105,7 @@
                             :class="toggled.symbols ? classes.enabledPill : classes.disabledPill"
                             @click="toggleSymbols"
                             v-tooltip="toggled.symbols ? tooltips.symbols.enabled : tooltips.symbols.disabled"
-                            :style="[toggled.numbers && toggled.symbols ? 'border-top-left-radius: 0; border-bottom-left-radius: 0;' : '' ]">
+                            :style="[ borderRadiusLeftStyles( toggled.numbers && toggled.symbols ) ]">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="h-4 w-4"
                                  fill="none"
@@ -205,6 +206,8 @@ export default {
     data() {
         return {
             status:                  null,
+            toolbarOnTop:            this.field.toolbarOnTop ?? false,
+            responsive:              this.field.responsive ?? true,
             passwordLength:          this.field.passwordLength ?? 16,
             passwordTotalLength:     this.field.passwordTotalLength ?? null,
             passwordMin:             this.field.passwordMin ?? 8,
@@ -314,13 +317,23 @@ export default {
     },
 
     computed: {
-        roundedCorners() {
-            if ( this.allExtrasHidden() ) {
-                return '';
-            } else {
-                return 'rounded-r-none';
-            }
-        }
+        responsiveClasses() {
+            return this.responsive
+                ? [ 'pg-responsive' ]
+                : [ 'pg-mobile-always' ];
+        },
+
+        toolbarPositionClasses() {
+            return this.toolbarOnTop
+                ? [ 'pg-toolbar-top' ]
+                : [ 'pg-toolbar-bottom' ];
+        },
+
+        passwordInputExtrasClasses() {
+            return this.allExtrasHidden()
+                ? [ 'pg-extras-hidden' ]
+                : [ 'pg-with-extras' ];
+        },
     },
 
     methods: {
@@ -336,6 +349,18 @@ export default {
          */
         fill( formData ) {
             formData.append( this.field.attribute, this.value || '' );
+        },
+
+        borderRadiusLeftStyles( $bool ) {
+            return $bool
+                ? [ 'border-top-left-radius: 0;', 'border-bottom-left-radius: 0;' ]
+                : [  ];
+        },
+
+        borderRadiusRightStyles( $bool ) {
+            return $bool
+                ? [ 'border-top-right-radius: 0;', 'border-bottom-right-radius: 0;' ]
+                : [  ];
         },
 
         allExtrasHidden() {

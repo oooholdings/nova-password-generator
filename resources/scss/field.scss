@@ -1,20 +1,4 @@
 .password-generator {
-    & > :last-child {
-        display        : flex;
-        flex-direction : column;
-
-        @media (min-width : 640px) {
-            flex-direction : row;
-        }
-
-        @media (min-width : 768px) {
-            flex-direction : column;
-        }
-
-        @media (min-width : 1280px) {
-            flex-direction : row;
-        }
-    }
 
     input:focus {
         position : relative;
@@ -23,24 +7,6 @@
 
     input[type=text] {
         font-family : ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
-    }
-
-    .pg-password-input {
-        &.pg-with-extras {
-            border-radius : 0.25rem 0.25rem 0 0;
-
-            @media (min-width : 640px) {
-                border-radius : 0.25rem 0 0 0.25rem;
-            }
-
-            @media (min-width : 768px) {
-                border-radius : 0.25rem 0.25rem 0 0;
-            }
-
-            @media (min-width : 1280px) {
-                border-radius : 0.25rem 0 0 0.25rem;
-            }
-        }
     }
 
     .pg-increment {
@@ -67,15 +33,13 @@
         height  : 36px;
 
         li.pg-option {
-            display           : inline-flex;
-            align-items       : center;
-            justify-content   : center;
-            padding           : 0 0.6rem;
-            border-top-width  : 0;
-            border-left-width : 0;
-            cursor            : pointer;
-            user-select       : none;
-            width             : 100%;
+            display         : inline-flex;
+            align-items     : center;
+            justify-content : center;
+            padding         : 0 0.6rem;
+            cursor          : pointer;
+            user-select     : none;
+            width           : 100%;
 
             &.pg-pill-wrapper {
                 padding : 0 0.3rem;
@@ -89,59 +53,237 @@
                 user-select : none;
                 padding     : 0;
                 margin      : 0;
+                width       : 100%;
 
                 .pg-pill-option {
-                    padding : 0.25rem;
+                    display         : flex;
+                    flex-grow       : 1;
+                    align-items     : center;
+                    justify-content : center;
+
+                    padding         : 0.25rem;
 
                     &.pg-enabled { border-radius : 0.5rem; }
                 }
             }
+        }
+    }
 
-            &:first-child {
-                border-left-width         : 1px;
-                border-bottom-left-radius : 0.25rem;
+    &.pg-toolbar-top {
+        & > :last-child {
+            display        : flex;
+            flex-direction : column-reverse;
+        }
+
+        .pg-password-input {
+            &.pg-with-extras {
+                border-radius : 0 0 0.25rem 0.25rem;
             }
+        }
 
-            &:last-child {
-                border-bottom-right-radius : 0.25rem;
-                border-top-right-radius    : 0;
-            }
+        ul.pg-options {
 
-            @media (min-width : 640px) {
-                border-top-width : 1px;
+            li.pg-option {
+                border-bottom-width : 0;
+                border-left-width   : 0;
+
                 &:first-child {
-                    border-left-width         : 0;
-                    border-bottom-left-radius : 0;
+                    border-left-width      : 1px;
+                    border-top-left-radius : 0.25rem;
                 }
+
                 &:last-child {
-                    border-top-right-radius    : 0.25rem;
-                    border-bottom-right-radius : 0.25rem;
+                    border-top-right-radius : 0.25rem;
+                }
+
+            }
+
+        }
+
+        &.pg-responsive {
+
+            & > :last-child {
+                @media (min-width : 640px) { flex-direction : row; }
+
+                @media (min-width : 768px) { flex-direction : column-reverse; }
+
+                @media (min-width : 1280px) { flex-direction : row; }
+            }
+
+            .pg-password-input {
+                &.pg-with-extras {
+                    @media (min-width : 640px) { border-radius : 0 0 0.25rem 0.25rem; }
+
+                    @media (min-width : 768px) { border-radius : 0.25rem 0.25rem 0 0; }
+
+                    @media (min-width : 1280px) { border-radius : 0 0 0.25rem 0.25rem; }
                 }
             }
 
-            @media (min-width : 768px) {
-                border-top-width : 0;
+            ul.pg-options {
+
+                li.pg-option {
+
+                    @media (min-width : 640px) {
+                        border-bottom-width : 1px;
+
+                        &:first-child {
+                            border-left-width         : 0;
+                            border-bottom-left-radius : 0;
+                        }
+
+                        &:last-child {
+                            border-top-right-radius    : 0.25rem;
+                            border-bottom-right-radius : 0.25rem;
+                        }
+                    }
+
+                    @media (min-width : 768px) {
+                        border-bottom-width : 0;
+
+                        &:first-child {
+                            border-left-width         : 1px;
+                            border-bottom-left-radius : 0.25rem;
+                        }
+
+                        &:last-child {
+                            border-top-right-radius    : 0;
+                            border-bottom-right-radius : 0.25rem;
+                        }
+                    }
+
+                    @media (min-width : 1280px) {
+                        border-bottom-width : 1px;
+
+                        &:first-child {
+                            border-left-width         : 0;
+                            border-bottom-left-radius : 0;
+                        }
+
+                        &:last-child {
+                            border-top-right-radius    : 0.25rem;
+                            border-bottom-right-radius : 0.25rem;
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+
+        &.pg-mobile-always {
+
+        }
+    }
+
+    &.pg-toolbar-bottom {
+        & > :last-child {
+            display        : flex;
+            flex-direction : column;
+        }
+
+        .pg-password-input {
+            &.pg-with-extras {
+                border-radius : 0.25rem 0.25rem 0 0;
+            }
+        }
+
+        ul.pg-options {
+
+            li.pg-option {
+                border-top-width  : 0;
+                border-left-width : 0;
+
                 &:first-child {
                     border-left-width         : 1px;
                     border-bottom-left-radius : 0.25rem;
                 }
+
                 &:last-child {
-                    border-top-right-radius    : 0;
                     border-bottom-right-radius : 0.25rem;
+                    border-top-right-radius    : 0;
+                }
+
+            }
+
+        }
+
+        &.pg-responsive {
+
+            & > :last-child {
+                @media (min-width : 640px) { flex-direction : row; }
+
+                @media (min-width : 768px) { flex-direction : column; }
+
+                @media (min-width : 1280px) { flex-direction : row; }
+            }
+
+            .pg-password-input {
+                &.pg-with-extras {
+                    @media (min-width : 640px) { border-radius : 0.25rem 0 0 0.25rem; }
+
+                    @media (min-width : 768px) { border-radius : 0.25rem 0.25rem 0 0; }
+
+                    @media (min-width : 1280px) { border-radius : 0.25rem 0 0 0.25rem; }
                 }
             }
 
-            @media (min-width : 1280px) {
-                border-top-width : 1px;
-                &:first-child {
-                    border-left-width         : 0;
-                    border-bottom-left-radius : 0;
+            ul.pg-options {
+
+                li.pg-option {
+                    @media (min-width : 640px) {
+                        border-top-width : 1px;
+
+                        &:first-child {
+                            border-left-width         : 0;
+                            border-bottom-left-radius : 0;
+                        }
+
+                        &:last-child {
+                            border-top-right-radius    : 0.25rem;
+                            border-bottom-right-radius : 0.25rem;
+                        }
+                    }
+
+                    @media (min-width : 768px) {
+                        border-top-width : 0;
+
+                        &:first-child {
+                            border-left-width         : 1px;
+                            border-bottom-left-radius : 0.25rem;
+                        }
+
+                        &:last-child {
+                            border-top-right-radius    : 0;
+                            border-bottom-right-radius : 0.25rem;
+                        }
+                    }
+
+                    @media (min-width : 1280px) {
+                        border-top-width : 1px;
+
+                        &:first-child {
+                            border-left-width         : 0;
+                            border-bottom-left-radius : 0;
+                        }
+
+                        &:last-child {
+                            border-top-right-radius    : 0.25rem;
+                            border-bottom-right-radius : 0.25rem;
+                        }
+
+                    }
+
                 }
-                &:last-child {
-                    border-top-right-radius    : 0.25rem;
-                    border-bottom-right-radius : 0.25rem;
-                }
+
             }
+
+        }
+
+        &.pg-mobile-always {
+
         }
     }
 }
