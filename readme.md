@@ -242,10 +242,8 @@ public function fields()
             ->regenerateOnToggle( bool $enabled = true )
             // Should the toolbar be placed above the password field
             ->toolbarOnTop( bool $toolbarOnTop = true )
-            // Should the password field always be the mobile version
-            // otherwise, it'll switch between being on the bottom/top and the right side
-            // depending on where it would look best based on the devices window size
-            ->mobileFirstAlways( bool $mobileFirstAlways = true ),
+            // Disable the side toolbar, only displaying it above or below the password field
+            ->disableSideToolbar( bool $disable = true ),
 
     ];
 }

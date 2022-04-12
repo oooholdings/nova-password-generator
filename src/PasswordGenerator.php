@@ -369,15 +369,16 @@ class PasswordGenerator extends Field
     }
 
     /**
-     * Whether the password field should be responsive.
+     * Disable the side toolbar, only displaying it above
+     * or below the password field.
      *
-     * @param bool $mobileFirstAlways
+     * @param bool $disable
      * @return PasswordGenerator
      */
-    public function mobileFirstAlways( bool $mobileFirstAlways = true ): PasswordGenerator
+    public function disableSideToolbar( bool $disable = true ): PasswordGenerator
     {
         return $this->withMeta( [
-            'responsive' => !$mobileFirstAlways,
+            'responsive' => !$disable,
         ] );
     }
 }
