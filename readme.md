@@ -174,19 +174,22 @@ public function fields()
 
         PasswordGenerator::make( 'Password' )
             // Included by default, you can exclude all lowercase characters (e.g. abc)
-            ->lowercase( bool $enabled = true ) // default: true
+            ->excludeLowercase( bool $exclude = true ) // default: true
             // Included by default, you can exclude all uppercase characters (e.g. ABC)
-            ->uppercase( bool $enabled = true ) // default: true
+            ->excludeUppercase( bool $exclude = true ) // default: true
             // Included by default, you can exclude all numbers characters (e.g. 123)
-            ->numbers( bool $enabled = true ) // default: true
+            ->excludeNumbers( bool $exclude = true ) // default: true
             // Included by default, you can exclude all symbols characters (e.g. $@!)
-            ->symbols( bool $enabled = true ) // default: true
+            ->excludeSymbols( bool $exclude = true ) // default: true
             // Excluded by default, you can exclude characters that may look similar
             // (e.g. "i, l, 1, L, o, 0, O")
             ->excludeSimilar( bool $exclude = true )
             // Excluded by default, you can exclude ambiguous symbols
             // (e.g. "{ } [ ] ( ) / \ ' " ` ~ , ; : . < >")
             ->excludeAmbiguous( bool $exclude = true ),
+            // One method to exclude multiple options, accepts the following:
+            // 'lowercase', 'lower', 'uppercase', 'upper', 'numbers', 'digits', 'symbols', 'special'
+            ->excludeRules( array $excludeRules ),
 
     ];
 }
