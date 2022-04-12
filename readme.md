@@ -174,13 +174,13 @@ public function fields()
 
         PasswordGenerator::make( 'Password' )
             // Included by default, you can exclude all lowercase characters (e.g. abc)
-            ->excludeLowercase( bool $exclude = true ) // default: true
+            ->excludeLowercase( bool $exclude = true )
             // Included by default, you can exclude all uppercase characters (e.g. ABC)
-            ->excludeUppercase( bool $exclude = true ) // default: true
+            ->excludeUppercase( bool $exclude = true )
             // Included by default, you can exclude all numbers characters (e.g. 123)
-            ->excludeNumbers( bool $exclude = true ) // default: true
+            ->excludeNumbers( bool $exclude = true )
             // Included by default, you can exclude all symbols characters (e.g. $@!)
-            ->excludeSymbols( bool $exclude = true ) // default: true
+            ->excludeSymbols( bool $exclude = true )
             // Excluded by default, you can exclude characters that may look similar
             // (e.g. "i, l, 1, L, o, 0, O")
             ->excludeSimilar( bool $exclude = true )
@@ -188,7 +188,8 @@ public function fields()
             // (e.g. "{ } [ ] ( ) / \ ' " ` ~ , ; : . < >")
             ->excludeAmbiguous( bool $exclude = true ),
             // One method to exclude multiple options, accepts the following:
-            // 'lowercase', 'lower', 'uppercase', 'upper', 'numbers', 'digits', 'symbols', 'special'
+            // 'lowercase' or 'lower', 'uppercase' or 'upper', 'numbers' or 'digits',
+            // 'symbols' or 'special', 'similar', 'ambiguous'
             ->excludeRules( array $excludeRules ),
 
     ];
@@ -241,10 +242,8 @@ public function fields()
             ->regenerateOnToggle( bool $enabled = true )
             // Should the toolbar be placed above the password field
             ->toolbarOnTop( bool $toolbarOnTop = true )
-            // Should the password field always be the mobile version
-            // otherwise, it'll switch between being on the bottom/top and the right side
-            // depending on where it would look best based on the devices window size
-            ->mobileFirstAlways( bool $mobileFirstAlways = true ),
+            // Disable the side toolbar, only displaying it above or below the password field
+            ->disableSideToolbar( bool $disable = true ),
 
     ];
 }
