@@ -206,54 +206,54 @@ class PasswordGenerator extends Field
     }
 
     /**
-     * Whether lowercase characters should be enabled by default.
+     * Exclude lowercase characters in password charlist
      *
-     * @param bool $enabled
+     * @param bool $exclude
      * @return PasswordGenerator
      */
-    public function lowercase( bool $enabled = true ): PasswordGenerator
+    public function excludeLowercase( bool $exclude = true ): PasswordGenerator
     {
         return $this->withMeta( [
-            'lowercaseToggled' => $enabled,
+            'excludeLowercase' => $exclude,
         ] );
     }
 
     /**
-     * Whether uppercase characters should be enabled by default.
+     * Exclude uppercase characters in password charlist
      *
-     * @param bool $enabled
+     * @param bool $exclude
      * @return PasswordGenerator
      */
-    public function uppercase( bool $enabled = true ): PasswordGenerator
+    public function excludeUppercase( bool $exclude = true ): PasswordGenerator
     {
         return $this->withMeta( [
-            'uppercaseToggled' => $enabled,
+            'excludeUppercase' => $exclude,
         ] );
     }
 
     /**
-     * Whether numbers characters should be enabled by default.
+     * Exclude number characters in password charlist
      *
-     * @param bool $enabled
+     * @param bool $exclude
      * @return PasswordGenerator
      */
-    public function numbers( bool $enabled = true ): PasswordGenerator
+    public function excludeNumbers( bool $exclude = true ): PasswordGenerator
     {
         return $this->withMeta( [
-            'numbersToggled' => $enabled,
+            'excludeNumbers' => $exclude,
         ] );
     }
 
     /**
-     * Whether symbols characters should be enabled by default.
+     * Exclude symbol characters in password charlist.
      *
-     * @param bool $enabled
+     * @param bool $exclude
      * @return PasswordGenerator
      */
-    public function symbols( bool $enabled = true ): PasswordGenerator
+    public function excludeSymbols( bool $exclude = true ): PasswordGenerator
     {
         return $this->withMeta( [
-            'symbolsToggled' => $enabled,
+            'excludeSymbols' => $exclude,
         ] );
     }
 
@@ -282,6 +282,24 @@ class PasswordGenerator extends Field
     {
         return $this->withMeta( [
             'excludeAmbiguous' => $exclude,
+        ] );
+    }
+
+    /**
+     * Exclude multiple options at once.
+     *
+     * @param array $excludeRules
+     * @return PasswordGenerator
+     */
+    public function excludeRules( array $excludeRules ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'excludeLowercase' => !empty( array_intersect( [ 'lowercase', 'lower' ], $excludeRules ) ),
+            'excludeUppercase' => !empty( array_intersect( [ 'uppercase', 'upper' ], $excludeRules ) ),
+            'excludeNumbers'   => !empty( array_intersect( [ 'numbers', 'digits' ], $excludeRules ) ),
+            'excludeSymbols'   => !empty( array_intersect( [ 'symbols', 'special' ], $excludeRules ) ),
+            'excludeSimilar'   => !empty( array_intersect( [ 'similar' ], $excludeRules ) ),
+            'excludeAmbiguous' => !empty( array_intersect( [ 'ambiguous' ], $excludeRules ) ),
         ] );
     }
 

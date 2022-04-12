@@ -18,7 +18,7 @@
                     class="pg-option hover:text-primary-400 active:text-primary-600"
                     :class="showPassword ? classes.enabled : classes.disabled"
                     @click="toggleShowPassword"
-                    v-tooltip="toggled.showPassword ? tooltips.showPassword.enabled : tooltips.showPassword.disabled">
+                    v-tooltip="showPassword ? tooltips.showPassword.enabled : tooltips.showPassword.disabled">
                     <svg v-if="showPassword"
                          xmlns="http://www.w3.org/2000/svg"
                          class="h-4 w-4"
@@ -50,10 +50,10 @@
                     :class="classes.disabled">
                     <ul class="pg-pill-options">
                         <li class="pg-pill-option"
-                            :class="toggled.lowercase ? classes.enabledPill : classes.disabledPill"
+                            :class="!excluded.lowercase ? classes.enabledPill : classes.disabledPill"
                             @click="toggleLowercase"
-                            v-tooltip="toggled.lowercase ? tooltips.lowercase.enabled : tooltips.lowercase.disabled"
-                            :style="[ borderRadiusRightStyles( toggled.lowercase && toggled.uppercase ) ]">
+                            v-tooltip="!excluded.lowercase ? tooltips.lowercase.enabled : tooltips.lowercase.disabled"
+                            :style="[ borderRadiusRightStyles( !excluded.lowercase && !excluded.uppercase ) ]">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="h-4 w-4"
                                  fill="none"
@@ -69,10 +69,10 @@
                             </svg>
                         </li>
                         <li class="pg-pill-option"
-                            :class="toggled.uppercase ? classes.enabledPill : classes.disabledPill"
+                            :class="!excluded.uppercase ? classes.enabledPill : classes.disabledPill"
                             @click="toggleUppercase"
-                            v-tooltip="toggled.uppercase ? tooltips.uppercase.enabled : tooltips.uppercase.disabled"
-                            :style="[ borderRadiusLeftStyles( toggled.lowercase && toggled.uppercase ), borderRadiusRightStyles( toggled.uppercase && toggled.numbers ) ]">
+                            v-tooltip="!excluded.uppercase ? tooltips.uppercase.enabled : tooltips.uppercase.disabled"
+                            :style="[ borderRadiusLeftStyles( !excluded.lowercase && !excluded.uppercase ), borderRadiusRightStyles( !excluded.uppercase && !excluded.numbers ) ]">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="h-4 w-4"
                                  fill="none"
@@ -86,10 +86,10 @@
                             </svg>
                         </li>
                         <li class="pg-pill-option"
-                            :class="toggled.numbers ? classes.enabledPill : classes.disabledPill"
+                            :class="!excluded.numbers ? classes.enabledPill : classes.disabledPill"
                             @click="toggleNumbers"
-                            v-tooltip="toggled.numbers ? tooltips.numbers.enabled : tooltips.numbers.disabled"
-                            :style="[ borderRadiusLeftStyles( toggled.uppercase && toggled.numbers ), borderRadiusRightStyles( toggled.numbers && toggled.symbols ) ]">
+                            v-tooltip="!excluded.numbers ? tooltips.numbers.enabled : tooltips.numbers.disabled"
+                            :style="[ borderRadiusLeftStyles( !excluded.uppercase && !excluded.numbers ), borderRadiusRightStyles( !excluded.numbers && !excluded.symbols ) ]">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="h-4 w-4"
                                  fill="none"
@@ -102,10 +102,10 @@
                             </svg>
                         </li>
                         <li class="pg-pill-option"
-                            :class="toggled.symbols ? classes.enabledPill : classes.disabledPill"
+                            :class="!excluded.symbols ? classes.enabledPill : classes.disabledPill"
                             @click="toggleSymbols"
-                            v-tooltip="toggled.symbols ? tooltips.symbols.enabled : tooltips.symbols.disabled"
-                            :style="[ borderRadiusLeftStyles( toggled.numbers && toggled.symbols ) ]">
+                            v-tooltip="!excluded.symbols ? tooltips.symbols.enabled : tooltips.symbols.disabled"
+                            :style="[ borderRadiusLeftStyles( !excluded.numbers && !excluded.symbols ) ]">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="h-4 w-4"
                                  fill="none"
@@ -213,8 +213,6 @@ export default {
             passwordMin:             this.field.passwordMin ?? 8,
             passwordMax:             this.field.passwordMax ?? 128,
             passwordIncrementSteps:  this.field.passwordIncrementSteps ?? 4,
-            excludeSimilar:          this.field.excludeSimilar ?? true,
-            excludeAmbiguous:        this.field.excludeAmbiguous ?? true,
             showPassword:            this.field.showPassword ?? false,
             fillOnCreate:            this.field.fillOnCreate ?? false,
             fillOnUpdate:            this.field.fillOnUpdate ?? false,
@@ -226,11 +224,13 @@ export default {
             regenerateOnToggle:      this.field.regenerateOnToggle ?? true,
             passwordPrefix:          this.field.passwordPrefix ?? '',
             passwordSuffix:          this.field.passwordSuffix ?? '',
-            toggled:                 {
-                lowercase: this.field.lowercaseToggled ?? true,
-                uppercase: this.field.uppercaseToggled ?? true,
-                numbers:   this.field.numbersToggled ?? true,
-                symbols:   this.field.symbolsToggled ?? true,
+            excluded:                {
+                lowercase: this.field.excludeLowercase ?? false,
+                uppercase: this.field.excludeUppercase ?? false,
+                numbers:   this.field.excludeNumbers ?? false,
+                symbols:   this.field.excludeSymbols ?? false,
+                similar:   this.field.excludedSimilar ?? true,
+                ambiguous: this.field.excludedAmbiguous ?? true,
             },
             tooltips:                {
                 showPassword:       { enabled: 'Hide Password', disabled: 'Show Password' },
@@ -354,13 +354,13 @@ export default {
         borderRadiusLeftStyles( $bool ) {
             return $bool
                 ? [ 'border-top-left-radius: 0;', 'border-bottom-left-radius: 0;' ]
-                : [  ];
+                : [];
         },
 
         borderRadiusRightStyles( $bool ) {
             return $bool
                 ? [ 'border-top-right-radius: 0;', 'border-bottom-right-radius: 0;' ]
-                : [  ];
+                : [];
         },
 
         allExtrasHidden() {
@@ -376,17 +376,17 @@ export default {
             let charlist = '';
 
             if ( this.validateToggles() ) {
-                if ( this.toggled.lowercase && !this.excludeSimilar ) charlist += this.charlists.lowercase;
-                if ( this.toggled.lowercase && this.excludeSimilar ) charlist += this.charlists.lowercaseNoSimilar;
+                if ( !this.excluded.lowercase && !this.excluded.similar ) charlist += this.charlists.lowercase;
+                if ( !this.excluded.lowercase && this.excluded.similar ) charlist += this.charlists.lowercaseNoSimilar;
 
-                if ( this.toggled.uppercase && !this.excludeSimilar ) charlist += this.charlists.uppercase;
-                if ( this.toggled.uppercase && this.excludeSimilar ) charlist += this.charlists.uppercaseNoSimilar;
+                if ( !this.excluded.uppercase && !this.excluded.similar ) charlist += this.charlists.uppercase;
+                if ( !this.excluded.uppercase && this.excluded.similar ) charlist += this.charlists.uppercaseNoSimilar;
 
-                if ( this.toggled.numbers && !this.excludeSimilar ) charlist += this.charlists.numbers;
-                if ( this.toggled.numbers && this.excludeSimilar ) charlist += this.charlists.numbersNoSimilar;
+                if ( !this.excluded.numbers && !this.excluded.similar ) charlist += this.charlists.numbers;
+                if ( !this.excluded.numbers && this.excluded.similar ) charlist += this.charlists.numbersNoSimilar;
 
-                if ( this.toggled.symbols && !this.excludeAmbiguous ) charlist += this.charlists.symbols;
-                if ( this.toggled.symbols && this.excludeAmbiguous ) charlist += this.charlists.symbolsNoAmbiguous;
+                if ( !this.excluded.symbols && !this.excluded.ambiguous ) charlist += this.charlists.symbols;
+                if ( !this.excluded.symbols && this.excluded.ambiguous ) charlist += this.charlists.symbolsNoAmbiguous;
 
                 let adjustedLength = this.passwordLength;
 
@@ -462,10 +462,10 @@ export default {
         },
 
         validateToggles() {
-            if ( !this.toggled.lowercase
-                && !this.toggled.uppercase
-                && !this.toggled.numbers
-                && !this.toggled.symbols ) {
+            if ( this.excluded.lowercase
+                && this.excluded.uppercase
+                && this.excluded.numbers
+                && this.excluded.symbols ) {
                 Nova.error( 'Can\'t generate a password if no options are enabled.' );
                 return false;
             }
@@ -478,22 +478,22 @@ export default {
         },
 
         toggleLowercase() {
-            this.toggled.lowercase = !this.toggled.lowercase;
+            this.excluded.lowercase = !this.excluded.lowercase;
             if ( this.regenerateOnToggle ) this.regeneratePassword();
         },
 
         toggleUppercase() {
-            this.toggled.uppercase = !this.toggled.uppercase;
+            this.excluded.uppercase = !this.excluded.uppercase;
             if ( this.regenerateOnToggle ) this.regeneratePassword();
         },
 
         toggleNumbers() {
-            this.toggled.numbers = !this.toggled.numbers;
+            this.excluded.numbers = !this.excluded.numbers;
             if ( this.regenerateOnToggle ) this.regeneratePassword();
         },
 
         toggleSymbols() {
-            this.toggled.symbols = !this.toggled.symbols;
+            this.excluded.symbols = !this.excluded.symbols;
             if ( this.regenerateOnToggle ) this.regeneratePassword();
         },
     },
