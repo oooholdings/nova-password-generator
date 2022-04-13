@@ -3,6 +3,7 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![License][ico-license]][link-license]
+[![Laravel Nova v4][ico-nova-v4]][link-nova-v4]
 
 ---
 
@@ -14,6 +15,7 @@
     3. [Hide Toolbar Elements](#hide-toolbar-elements)
     4. [Customize Password Generation](#customize-password-generation)
     5. [Operation Base Filling](#operation-base-filling)
+    6. [Other Methods](#other-methods)
 4. [Credits](#credits)
 5. [License](#license)
 
@@ -26,7 +28,7 @@ updating resources.
 
 ![Password Generator Field Preview](preview.jpg)
 
-Currently, you can show and hide the password. Include or exclude lowercase, uppercase, numbers and symbols from the
+Currently, you can show and hide the password. Include or exclude uppercase, lowercase, numbers and symbols from the
 generated passwords. Change the password length, minimum and maximum length or total length that respects the length of
 any prefix or suffix used on in the password. Easily copy it to your clipboard and regenerate passwords when you update
 the options or manually via the button.
@@ -173,10 +175,10 @@ public function fields()
     return [
 
         PasswordGenerator::make( 'Password' )
-            // Included by default, you can exclude all lowercase characters (e.g. abc)
-            ->excludeLowercase( bool $exclude = true )
             // Included by default, you can exclude all uppercase characters (e.g. ABC)
             ->excludeUppercase( bool $exclude = true )
+            // Included by default, you can exclude all lowercase characters (e.g. abc)
+            ->excludeLowercase( bool $exclude = true )
             // Included by default, you can exclude all numbers characters (e.g. 123)
             ->excludeNumbers( bool $exclude = true )
             // Included by default, you can exclude all symbols characters (e.g. $@!)
@@ -188,9 +190,13 @@ public function fields()
             // (e.g. "{ } [ ] ( ) / \ ' " ` ~ , ; : . < >")
             ->excludeAmbiguous( bool $exclude = true ),
             // One method to exclude multiple options, accepts the following:
-            // 'lowercase' or 'lower', 'uppercase' or 'upper', 'numbers' or 'digits',
+            // 'uppercase' or 'upper', 'lowercase' or 'lower', 'numbers' or 'digits',
             // 'symbols' or 'special', 'similar', 'ambiguous'
             ->excludeRules( array $excludeRules ),
+            // Customize the character list for the generated password, just pass
+            // a string to this method, check PasswordGenerator class for more charlists
+            // using this method auto-hides the option element from the toolbar
+            ->customCharlist( string $charlist = PasswordGenerator::BASE16_MOD )
 
     ];
 }
@@ -265,6 +271,8 @@ MIT - Please see the [license file](license.md) for more information.
 
 [ico-license]: https://img.shields.io/packagist/l/outofoffice/password-generator?style=flat-square
 
+[ico-nova-v4]: https://img.shields.io/badge/nova-v4-333?logo=laravel-nova&style=flat-square
+
 [link-packagist]: https://packagist.org/packages/outofoffice/password-generator
 
 [link-downloads]: https://packagist.org/packages/outofoffice/password-generator
@@ -274,6 +282,8 @@ MIT - Please see the [license file](license.md) for more information.
 [link-company]: https://github.com/oooholdings
 
 [link-license]: https://github.com/oooholdings/nova-password-generator/blob/master/license.md
+
+[link-nova-v4]: https://nova.laravel.com/docs/4.0/
 
 [link-contributors]: https://github.com/oooholdings/nova-password-generator/contributors
 

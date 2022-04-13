@@ -9,6 +9,27 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 class PasswordGenerator extends Field
 {
     /**
+     * Character Lists For Your Convenience
+     */
+    public const UPPERCASE    = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    public const UPPERCASE_NS = 'ABCDEFGHJKMNPQRSTUVWXYZ';
+    public const LOWERCASE    = 'abcdefghijklmnopqrstuvwxyz';
+    public const LOWERCASE_NS = 'abcdefghjkmnpqrstuvwxyz';
+    public const BASE10       = '1234567890';
+    public const BASE16       = 'ABCDEF' . self::BASE10;
+    public const BASE16_MOD   = 'ABCDEFabcdef' . self::BASE10;
+    public const BASE32       = self::UPPERCASE . '234567';
+    public const BASE36       = self::UPPERCASE . self::BASE10;
+    public const BASE45_NS    = self::UPPERCASE . self::BASE10 . '_$%*+-./:';
+    public const BASE58       = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789';
+    public const BASE62       = self::UPPERCASE . self::LOWERCASE . self::BASE10;
+    public const BASE64       = self::BASE62 . '+/';
+    public const NUMBERS      = self::BASE10;
+    public const NUMBERS_NS   = '23456789';
+    public const SYMBOLS      = '`~\'"!@#$%^&*()_+-=[]{};:,.<>\/|?';
+    public const SYMBOLS_NA   = '!@#$%^&*_+-=?';
+
+    /**
      * The field's component.
      *
      * @var string
@@ -300,6 +321,20 @@ class PasswordGenerator extends Field
             'excludeSymbols'   => !empty( array_intersect( [ 'symbols', 'special' ], $excludeRules ) ),
             'excludeSimilar'   => !empty( array_intersect( [ 'similar' ], $excludeRules ) ),
             'excludeAmbiguous' => !empty( array_intersect( [ 'ambiguous' ], $excludeRules ) ),
+        ] );
+    }
+
+    /**
+     * Ignore built-in charlist for a custom one.
+     * Also hides password options element on toolbar.
+     *
+     * @param string $charlist
+     * @return PasswordGenerator
+     */
+    public function customCharlist( string $charlist = PasswordGenerator::BASE16_MOD ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'customCharlist' => $charlist,
         ] );
     }
 

@@ -50,10 +50,27 @@
                     :class="classes.disabled">
                     <ul class="pg-pill-options">
                         <li class="pg-pill-option"
+                            :class="!excluded.uppercase ? classes.enabledPill : classes.disabledPill"
+                            @click="toggleUppercase"
+                            v-tooltip="!excluded.uppercase ? tooltips.uppercase.enabled : tooltips.uppercase.disabled"
+                            :style="[ borderRadiusRightStyles( !excluded.uppercase && !excluded.lowercase ) ]">
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                 class="h-4 w-4"
+                                 fill="none"
+                                 viewBox="0 0 24 24"
+                                 stroke="currentColor"
+                                 stroke-width="2.5"
+                                 stroke-linecap="round"
+                                 stroke-linejoin="round">
+                                <path d="m5 20 7-16 7 16" />
+                                <path d="m16.832703 15.669922h-9.664673" />
+                            </svg>
+                        </li>
+                        <li class="pg-pill-option"
                             :class="!excluded.lowercase ? classes.enabledPill : classes.disabledPill"
                             @click="toggleLowercase"
                             v-tooltip="!excluded.lowercase ? tooltips.lowercase.enabled : tooltips.lowercase.disabled"
-                            :style="[ borderRadiusRightStyles( !excluded.lowercase && !excluded.uppercase ) ]">
+                            :style="[ borderRadiusLeftStyles( !excluded.uppercase && !excluded.lowercase ), borderRadiusRightStyles( !excluded.lowercase && !excluded.numbers ) ]">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="h-4 w-4"
                                  fill="none"
@@ -69,27 +86,10 @@
                             </svg>
                         </li>
                         <li class="pg-pill-option"
-                            :class="!excluded.uppercase ? classes.enabledPill : classes.disabledPill"
-                            @click="toggleUppercase"
-                            v-tooltip="!excluded.uppercase ? tooltips.uppercase.enabled : tooltips.uppercase.disabled"
-                            :style="[ borderRadiusLeftStyles( !excluded.lowercase && !excluded.uppercase ), borderRadiusRightStyles( !excluded.uppercase && !excluded.numbers ) ]">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 class="h-4 w-4"
-                                 fill="none"
-                                 viewBox="0 0 24 24"
-                                 stroke="currentColor"
-                                 stroke-width="2.5"
-                                 stroke-linecap="round"
-                                 stroke-linejoin="round">
-                                <path d="m5 20 7-16 7 16" />
-                                <path d="m16.832703 15.669922h-9.664673" />
-                            </svg>
-                        </li>
-                        <li class="pg-pill-option"
                             :class="!excluded.numbers ? classes.enabledPill : classes.disabledPill"
                             @click="toggleNumbers"
                             v-tooltip="!excluded.numbers ? tooltips.numbers.enabled : tooltips.numbers.disabled"
-                            :style="[ borderRadiusLeftStyles( !excluded.uppercase && !excluded.numbers ), borderRadiusRightStyles( !excluded.numbers && !excluded.symbols ) ]">
+                            :style="[ borderRadiusLeftStyles( !excluded.lowercase && !excluded.numbers ), borderRadiusRightStyles( !excluded.numbers && !excluded.symbols ) ]">
                             <svg xmlns="http://www.w3.org/2000/svg"
                                  class="h-4 w-4"
                                  fill="none"
@@ -224,9 +224,10 @@ export default {
             regenerateOnToggle:      this.field.regenerateOnToggle ?? true,
             passwordPrefix:          this.field.passwordPrefix ?? '',
             passwordSuffix:          this.field.passwordSuffix ?? '',
+            customCharlist:          this.field.customCharlist ?? null,
             excluded:                {
-                lowercase: this.field.excludeLowercase ?? false,
                 uppercase: this.field.excludeUppercase ?? false,
+                lowercase: this.field.excludeLowercase ?? false,
                 numbers:   this.field.excludeNumbers ?? false,
                 symbols:   this.field.excludeSymbols ?? false,
                 similar:   this.field.excludedSimilar ?? true,
@@ -234,8 +235,8 @@ export default {
             },
             tooltips:                {
                 showPassword:       { enabled: 'Hide Password', disabled: 'Show Password' },
-                lowercase:          { enabled: 'Exclude Lowercase', disabled: 'Include Lowercase' },
                 uppercase:          { enabled: 'Exclude Uppercase', disabled: 'Include Uppercase' },
+                lowercase:          { enabled: 'Exclude Lowercase', disabled: 'Include Lowercase' },
                 numbers:            { enabled: 'Exclude Numbers', disabled: 'Include Numbers' },
                 symbols:            { enabled: 'Exclude Symbols', disabled: 'Include Symbols' },
                 decreaseLength:     'Decrease Length',
@@ -289,10 +290,10 @@ export default {
                 ],
             },
             charlists:               {
-                lowercase:          'abcdefghijklmnopqrstuvwxyz',
-                lowercaseNoSimilar: 'abcdefghjkmnpqrstuvwxyz',
                 uppercase:          'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
                 uppercaseNoSimilar: 'ABCDEFGHJKMNPQRSTUVWXYZ',
+                lowercase:          'abcdefghijklmnopqrstuvwxyz',
+                lowercaseNoSimilar: 'abcdefghjkmnpqrstuvwxyz',
                 numbers:            '1234567890',
                 numbersNoSimilar:   '23456789',
                 symbols:            '`~\'"!@#$%^&*()_+-=[]{};:,.<>\\/|?',
@@ -313,6 +314,10 @@ export default {
         } else if ( panelName.toLowerCase().includes( 'create' ) && uniqueKey.toLowerCase().includes( 'create' ) ) {
             this.status = 'create';
             if ( this.fillOnCreate ) this.regeneratePassword();
+        }
+
+        if ( this.customCharlist !== null ) {
+            this.hideOptionsToggles = true;
         }
     },
 
@@ -376,17 +381,22 @@ export default {
             let charlist = '';
 
             if ( this.validateToggles() ) {
-                if ( !this.excluded.lowercase && !this.excluded.similar ) charlist += this.charlists.lowercase;
-                if ( !this.excluded.lowercase && this.excluded.similar ) charlist += this.charlists.lowercaseNoSimilar;
 
-                if ( !this.excluded.uppercase && !this.excluded.similar ) charlist += this.charlists.uppercase;
-                if ( !this.excluded.uppercase && this.excluded.similar ) charlist += this.charlists.uppercaseNoSimilar;
+                if ( this.customCharlist !== null ) {
+                    charlist = this.customCharlist;
+                } else {
+                    if ( !this.excluded.uppercase && !this.excluded.similar ) charlist += this.charlists.uppercase;
+                    if ( !this.excluded.uppercase && this.excluded.similar ) charlist += this.charlists.uppercaseNoSimilar;
 
-                if ( !this.excluded.numbers && !this.excluded.similar ) charlist += this.charlists.numbers;
-                if ( !this.excluded.numbers && this.excluded.similar ) charlist += this.charlists.numbersNoSimilar;
+                    if ( !this.excluded.lowercase && !this.excluded.similar ) charlist += this.charlists.lowercase;
+                    if ( !this.excluded.lowercase && this.excluded.similar ) charlist += this.charlists.lowercaseNoSimilar;
 
-                if ( !this.excluded.symbols && !this.excluded.ambiguous ) charlist += this.charlists.symbols;
-                if ( !this.excluded.symbols && this.excluded.ambiguous ) charlist += this.charlists.symbolsNoAmbiguous;
+                    if ( !this.excluded.numbers && !this.excluded.similar ) charlist += this.charlists.numbers;
+                    if ( !this.excluded.numbers && this.excluded.similar ) charlist += this.charlists.numbersNoSimilar;
+
+                    if ( !this.excluded.symbols && !this.excluded.ambiguous ) charlist += this.charlists.symbols;
+                    if ( !this.excluded.symbols && this.excluded.ambiguous ) charlist += this.charlists.symbolsNoAmbiguous;
+                }
 
                 let adjustedLength = this.passwordLength;
 
@@ -462,8 +472,8 @@ export default {
         },
 
         validateToggles() {
-            if ( this.excluded.lowercase
-                && this.excluded.uppercase
+            if ( this.excluded.uppercase
+                && this.excluded.lowercase
                 && this.excluded.numbers
                 && this.excluded.symbols ) {
                 Nova.error( 'Can\'t generate a password if no options are enabled.' );
@@ -477,13 +487,13 @@ export default {
             this.showPassword = !this.showPassword;
         },
 
-        toggleLowercase() {
-            this.excluded.lowercase = !this.excluded.lowercase;
+        toggleUppercase() {
+            this.excluded.uppercase = !this.excluded.uppercase;
             if ( this.regenerateOnToggle ) this.regeneratePassword();
         },
 
-        toggleUppercase() {
-            this.excluded.uppercase = !this.excluded.uppercase;
+        toggleLowercase() {
+            this.excluded.lowercase = !this.excluded.lowercase;
             if ( this.regenerateOnToggle ) this.regeneratePassword();
         },
 
