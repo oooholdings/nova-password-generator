@@ -3,6 +3,7 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Total Downloads][ico-downloads]][link-downloads]
 [![License][ico-license]][link-license]
+[![Laravel Nova v4][ico-nova-v4]][link-nova-v4]
 
 ---
 
@@ -14,6 +15,7 @@
     3. [Hide Toolbar Elements](#hide-toolbar-elements)
     4. [Customize Password Generation](#customize-password-generation)
     5. [Operation Base Filling](#operation-base-filling)
+    6. [Other Methods](#other-methods)
 4. [Credits](#credits)
 5. [License](#license)
 
@@ -265,6 +267,8 @@ MIT - Please see the [license file](license.md) for more information.
 
 [ico-license]: https://img.shields.io/packagist/l/outofoffice/password-generator?style=flat-square
 
+[ico-nova-v4]: https://img.shields.io/badge/nova-v4-333?logo=laravel-nova&style=flat-square
+
 [link-packagist]: https://packagist.org/packages/outofoffice/password-generator
 
 [link-downloads]: https://packagist.org/packages/outofoffice/password-generator
@@ -274,6 +278,8 @@ MIT - Please see the [license file](license.md) for more information.
 [link-company]: https://github.com/oooholdings
 
 [link-license]: https://github.com/oooholdings/nova-password-generator/blob/master/license.md
+
+[link-nova-v4]: https://nova.laravel.com/docs/4.0/
 
 [link-contributors]: https://github.com/oooholdings/nova-password-generator/contributors
 
