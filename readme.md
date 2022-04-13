@@ -193,6 +193,10 @@ public function fields()
             // 'uppercase' or 'upper', 'lowercase' or 'lower', 'numbers' or 'digits',
             // 'symbols' or 'special', 'similar', 'ambiguous'
             ->excludeRules( array $excludeRules ),
+            // Customize the character list for the generated password, just pass
+            // a string to this method, check PasswordGenerator class for more charlists
+            // using this method auto-hides the option element from the toolbar
+            ->customCharlist( string $charlist = PasswordGenerator::BASE16_MOD )
 
     ];
 }

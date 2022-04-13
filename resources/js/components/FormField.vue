@@ -224,6 +224,7 @@ export default {
             regenerateOnToggle:      this.field.regenerateOnToggle ?? true,
             passwordPrefix:          this.field.passwordPrefix ?? '',
             passwordSuffix:          this.field.passwordSuffix ?? '',
+            customCharlist:          this.field.customCharlist ?? null,
             excluded:                {
                 uppercase: this.field.excludeUppercase ?? false,
                 lowercase: this.field.excludeLowercase ?? false,
@@ -314,6 +315,10 @@ export default {
             this.status = 'create';
             if ( this.fillOnCreate ) this.regeneratePassword();
         }
+
+        if ( this.customCharlist !== null ) {
+            this.hideOptionsToggles = true;
+        }
     },
 
     computed: {
@@ -376,17 +381,22 @@ export default {
             let charlist = '';
 
             if ( this.validateToggles() ) {
-                if ( !this.excluded.uppercase && !this.excluded.similar ) charlist += this.charlists.uppercase;
-                if ( !this.excluded.uppercase && this.excluded.similar ) charlist += this.charlists.uppercaseNoSimilar;
 
-                if ( !this.excluded.lowercase && !this.excluded.similar ) charlist += this.charlists.lowercase;
-                if ( !this.excluded.lowercase && this.excluded.similar ) charlist += this.charlists.lowercaseNoSimilar;
+                if ( this.customCharlist !== null ) {
+                    charlist = this.customCharlist;
+                } else {
+                    if ( !this.excluded.uppercase && !this.excluded.similar ) charlist += this.charlists.uppercase;
+                    if ( !this.excluded.uppercase && this.excluded.similar ) charlist += this.charlists.uppercaseNoSimilar;
 
-                if ( !this.excluded.numbers && !this.excluded.similar ) charlist += this.charlists.numbers;
-                if ( !this.excluded.numbers && this.excluded.similar ) charlist += this.charlists.numbersNoSimilar;
+                    if ( !this.excluded.lowercase && !this.excluded.similar ) charlist += this.charlists.lowercase;
+                    if ( !this.excluded.lowercase && this.excluded.similar ) charlist += this.charlists.lowercaseNoSimilar;
 
-                if ( !this.excluded.symbols && !this.excluded.ambiguous ) charlist += this.charlists.symbols;
-                if ( !this.excluded.symbols && this.excluded.ambiguous ) charlist += this.charlists.symbolsNoAmbiguous;
+                    if ( !this.excluded.numbers && !this.excluded.similar ) charlist += this.charlists.numbers;
+                    if ( !this.excluded.numbers && this.excluded.similar ) charlist += this.charlists.numbersNoSimilar;
+
+                    if ( !this.excluded.symbols && !this.excluded.ambiguous ) charlist += this.charlists.symbols;
+                    if ( !this.excluded.symbols && this.excluded.ambiguous ) charlist += this.charlists.symbolsNoAmbiguous;
+                }
 
                 let adjustedLength = this.passwordLength;
 
