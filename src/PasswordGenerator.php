@@ -334,7 +334,8 @@ class PasswordGenerator extends Field
     public function customCharlist( string $charlist = PasswordGenerator::BASE16_MOD ): PasswordGenerator
     {
         return $this->withMeta( [
-            'customCharlist' => $charlist,
+            'customCharlist'     => $charlist,
+            'hideOptionsToggles' => true,
         ] );
     }
 

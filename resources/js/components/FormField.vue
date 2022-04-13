@@ -316,7 +316,7 @@ export default {
             if ( this.fillOnCreate ) this.regeneratePassword();
         }
 
-        if ( this.customCharlist !== null ) {
+        if ( this.customCharlist !== null && !this.hideOptionsToggles ) {
             this.hideOptionsToggles = true;
         }
     },
