@@ -26,7 +26,7 @@ updating resources.
 
 ![Password Generator Field Preview](preview.jpg)
 
-Currently, you can show and hide the password. Include or exclude lowercase, uppercase, numbers and symbols from the
+Currently, you can show and hide the password. Include or exclude uppercase, lowercase, numbers and symbols from the
 generated passwords. Change the password length, minimum and maximum length or total length that respects the length of
 any prefix or suffix used on in the password. Easily copy it to your clipboard and regenerate passwords when you update
 the options or manually via the button.
@@ -173,10 +173,10 @@ public function fields()
     return [
 
         PasswordGenerator::make( 'Password' )
-            // Included by default, you can exclude all lowercase characters (e.g. abc)
-            ->excludeLowercase( bool $exclude = true )
             // Included by default, you can exclude all uppercase characters (e.g. ABC)
             ->excludeUppercase( bool $exclude = true )
+            // Included by default, you can exclude all lowercase characters (e.g. abc)
+            ->excludeLowercase( bool $exclude = true )
             // Included by default, you can exclude all numbers characters (e.g. 123)
             ->excludeNumbers( bool $exclude = true )
             // Included by default, you can exclude all symbols characters (e.g. $@!)
@@ -188,7 +188,7 @@ public function fields()
             // (e.g. "{ } [ ] ( ) / \ ' " ` ~ , ; : . < >")
             ->excludeAmbiguous( bool $exclude = true ),
             // One method to exclude multiple options, accepts the following:
-            // 'lowercase' or 'lower', 'uppercase' or 'upper', 'numbers' or 'digits',
+            // 'uppercase' or 'upper', 'lowercase' or 'lower', 'numbers' or 'digits',
             // 'symbols' or 'special', 'similar', 'ambiguous'
             ->excludeRules( array $excludeRules ),
 
