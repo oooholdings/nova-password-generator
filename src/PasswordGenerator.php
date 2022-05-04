@@ -417,4 +417,86 @@ class PasswordGenerator extends Field
             'responsive' => !$disable,
         ] );
     }
+
+    /**
+     * Show the field value by default on detail view.
+     *
+     * @param bool $show
+     * @return PasswordGenerator
+     */
+    public function showValueOnDetail( bool $show = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'showValueOnDetail' => $show,
+        ] );
+    }
+
+    /**
+     * Show the field value by default on index view.
+     *
+     * @param bool $show
+     * @return PasswordGenerator
+     */
+    public function showValueOnIndex( bool $show = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'showValueOnIndex' => $show,
+        ] );
+    }
+
+    /**
+     * Blur the field value by default on detail view.
+     *
+     * @param bool $blur
+     * @return PasswordGenerator
+     */
+    public function blurValueOnDetail( bool $blur = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'blurValueOnDetail' => $blur,
+        ] );
+    }
+
+    /**
+     * Blur the field value by default on index view.
+     *
+     * @param bool $blur
+     * @return PasswordGenerator
+     */
+    public function blurValueOnIndex( bool $blur = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'blurValueOnIndex' => $blur,
+        ] );
+    }
+
+    /**
+     * Redact the field value by default on detail view.
+     *
+     * @param bool   $redact
+     * @param string $character
+     * @return PasswordGenerator
+     */
+    public function redactValueOnDetail( bool $redact = true, string $character = '•' ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'redactValueOnDetail' => $redact,
+            'redactionCharacter'  => $character,
+        ] );
+    }
+
+    /**
+     * Redact the field value by default on index view.
+     *
+     * @param bool   $redact
+     * @param string $character
+     * @return PasswordGenerator
+     */
+    public function redactValueOnIndex( bool $redact = true, string $character = '•' ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'redactValueOnIndex' => $redact,
+            'redactionCharacter' => $character,
+        ] );
+    }
 }

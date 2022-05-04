@@ -1,0 +1,285 @@
+input:focus {
+    position : relative;
+    z-index  : 9;
+}
+
+input[type=text] {
+    font-family : ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, Courier New, monospace;
+}
+
+.ooo\:pg-increment {
+    display         : flex;
+    align-items     : center;
+    justify-content : space-between;
+    width           : 100%;
+
+    .ooo\:pg-password-length {
+        display     : flex;
+        outline     : none;
+        text-align  : center;
+        font-weight : 600;
+        padding     : 0 0.25rem;
+        width       : auto;
+    }
+}
+
+ul.ooo\:pg-options {
+    display : flex;
+    padding : 0;
+    margin  : 0;
+    height  : 36px;
+
+    li.ooo\:pg-option {
+        display         : inline-flex;
+        align-items     : center;
+        justify-content : center;
+        padding         : 0 0.6rem;
+        cursor          : pointer;
+        user-select     : none;
+        width           : 100%;
+
+        &.ooo\:pg-pill-wrapper {
+            padding : 0 0.3rem;
+        }
+
+        ul.ooo\:pg-pill-options {
+            display     : flex;
+            align-items : center;
+            border-left : none;
+            cursor      : pointer;
+            user-select : none;
+            padding     : 0;
+            margin      : 0;
+            width       : 100%;
+
+            .ooo\:pg-pill-option {
+                display         : flex;
+                flex-grow       : 1;
+                align-items     : center;
+                justify-content : center;
+
+                padding         : 0.25rem;
+
+                &.ooo\:pg-enabled { border-radius : 0.5rem; }
+            }
+        }
+    }
+}
+
+&.ooo\:pg-toolbar-top {
+    & > :last-child {
+        display        : flex;
+        flex-direction : column-reverse;
+    }
+
+    .ooo\:pg-password-input {
+        &.ooo\:pg-with-extras {
+            border-radius : 0 0 0.25rem 0.25rem;
+        }
+    }
+
+    ul.ooo\:pg-options {
+
+        li.ooo\:pg-option {
+            border-bottom-width : 0;
+            border-left-width   : 0;
+
+            &:first-child {
+                border-left-width      : 1px;
+                border-top-left-radius : 0.25rem;
+            }
+
+            &:last-child {
+                border-top-right-radius : 0.25rem;
+            }
+
+        }
+
+    }
+
+    &.ooo\:pg-responsive {
+
+        & > :last-child {
+            @media (min-width : 640px) { flex-direction : row; }
+
+            @media (min-width : 768px) { flex-direction : column-reverse; }
+
+            @media (min-width : 1280px) { flex-direction : row; }
+        }
+
+        .ooo\:pg-password-input {
+            &.ooo\:pg-with-extras {
+                @media (min-width : 640px) { border-radius : 0 0 0.25rem 0.25rem; }
+
+                @media (min-width : 768px) { border-radius : 0.25rem 0.25rem 0 0; }
+
+                @media (min-width : 1280px) { border-radius : 0 0 0.25rem 0.25rem; }
+            }
+        }
+
+        ul.ooo\:pg-options {
+
+            li.ooo\:pg-option {
+
+                @media (min-width : 640px) {
+                    border-bottom-width : 1px;
+
+                    &:first-child {
+                        border-left-width         : 0;
+                        border-bottom-left-radius : 0;
+                    }
+
+                    &:last-child {
+                        border-top-right-radius    : 0.25rem;
+                        border-bottom-right-radius : 0.25rem;
+                    }
+                }
+
+                @media (min-width : 768px) {
+                    border-bottom-width : 0;
+
+                    &:first-child {
+                        border-left-width         : 1px;
+                        border-bottom-left-radius : 0.25rem;
+                    }
+
+                    &:last-child {
+                        border-top-right-radius    : 0;
+                        border-bottom-right-radius : 0.25rem;
+                    }
+                }
+
+                @media (min-width : 1280px) {
+                    border-bottom-width : 1px;
+
+                    &:first-child {
+                        border-left-width         : 0;
+                        border-bottom-left-radius : 0;
+                    }
+
+                    &:last-child {
+                        border-top-right-radius    : 0.25rem;
+                        border-bottom-right-radius : 0.25rem;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    &.ooo\:pg-mobile-always {
+
+    }
+}
+
+&.ooo\:pg-toolbar-bottom {
+    & > :last-child {
+        display        : flex;
+        flex-direction : column;
+    }
+
+    .ooo\:pg-password-input {
+        &.ooo\:pg-with-extras {
+            border-radius : 0.25rem 0.25rem 0 0;
+        }
+    }
+
+    ul.ooo\:pg-options {
+
+        li.ooo\:pg-option {
+            border-top-width  : 0;
+            border-left-width : 0;
+
+            &:first-child {
+                border-left-width         : 1px;
+                border-bottom-left-radius : 0.25rem;
+            }
+
+            &:last-child {
+                border-bottom-right-radius : 0.25rem;
+                border-top-right-radius    : 0;
+            }
+
+        }
+
+    }
+
+    &.ooo\:pg-responsive {
+
+        & > :last-child {
+            @media (min-width : 640px) { flex-direction : row; }
+
+            @media (min-width : 768px) { flex-direction : column; }
+
+            @media (min-width : 1280px) { flex-direction : row; }
+        }
+
+        .ooo\:pg-password-input {
+            &.ooo\:pg-with-extras {
+                @media (min-width : 640px) { border-radius : 0.25rem 0 0 0.25rem; }
+
+                @media (min-width : 768px) { border-radius : 0.25rem 0.25rem 0 0; }
+
+                @media (min-width : 1280px) { border-radius : 0.25rem 0 0 0.25rem; }
+            }
+        }
+
+        ul.ooo\:pg-options {
+
+            li.ooo\:pg-option {
+                @media (min-width : 640px) {
+                    border-top-width : 1px;
+
+                    &:first-child {
+                        border-left-width         : 0;
+                        border-bottom-left-radius : 0;
+                    }
+
+                    &:last-child {
+                        border-top-right-radius    : 0.25rem;
+                        border-bottom-right-radius : 0.25rem;
+                    }
+                }
+
+                @media (min-width : 768px) {
+                    border-top-width : 0;
+
+                    &:first-child {
+                        border-left-width         : 1px;
+                        border-bottom-left-radius : 0.25rem;
+                    }
+
+                    &:last-child {
+                        border-top-right-radius    : 0;
+                        border-bottom-right-radius : 0.25rem;
+                    }
+                }
+
+                @media (min-width : 1280px) {
+                    border-top-width : 1px;
+
+                    &:first-child {
+                        border-left-width         : 0;
+                        border-bottom-left-radius : 0;
+                    }
+
+                    &:last-child {
+                        border-top-right-radius    : 0.25rem;
+                        border-bottom-right-radius : 0.25rem;
+                    }
+
+                }
+
+            }
+
+        }
+
+    }
+
+    &.ooo\:pg-mobile-always {
+
+    }
+}

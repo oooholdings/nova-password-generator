@@ -15,7 +15,8 @@
     3. [Hide Toolbar Elements](#hide-toolbar-elements)
     4. [Customize Password Generation](#customize-password-generation)
     5. [Operation Base Filling](#operation-base-filling)
-    6. [Other Methods](#other-methods)
+    6. [Index and Detail View](#index-and-detail-view)
+    7. [Other Methods](#other-methods)
 4. [Credits](#credits)
 5. [License](#license)
 
@@ -223,6 +224,38 @@ public function fields()
             // Disabled by default, will fill input with generated password on load
             // only when updating a new resource.
             ->fillOnUpdate( bool $enabled = true ),
+
+    ];
+}
+```
+
+### Index and Detail View
+
+You can now show the value of your field on the index or detail pages, usually you wouldn't want to do this
+if you're using this field for passwords. But with other use-cases like tokens and such, this would be great.
+Since there's a detail field now, you can use this within the resource preview modal.
+
+```php
+// in app/Nova/[Resource].php
+
+use OutOfOffice\PasswordGenerator\PasswordGenerator;
+
+public function fields()
+{
+    return [
+
+        PasswordGenerator::make( 'Personal Access Token' )
+            // Show the password as plain-text by default on the respective pages
+            // These two methods work well with the others as they just show the password
+            // on page load, you can use the other methods below for the styling
+            ->showValueOnDetail( bool $show = true )
+            ->showValueOnIndex( bool $show = true )
+            // Hide the password with a blur effect on the respective pages
+            ->blurValueOnDetail( bool $show = true )
+            ->blurValueOnIndex( bool $show = true )
+            // Hide the password with a set character on the respective pages
+            ->redactValueOnDetail( bool $redact = true, string $character = '•' )
+            ->redactValueOnIndex( bool $redact = true, string $character = '•' )
 
     ];
 }

@@ -1,0 +1,23 @@
+.ooo\:pg-value {
+    position        : relative;
+    display         : inline-flex;
+    justify-content : center;
+    align-items     : center;
+
+    .ooo\:pg-value-blurred {
+        filter      : blur(3px);
+        user-select : none;
+    }
+
+//    .ooo\:pg-reveal-value {
+//        transition : box-shadow 300ms;
+//        display    : inline-block;
+//        box-shadow : 0 0 0 1px rgba(black, 0.1);
+//        cursor     : pointer;
+//
+//        &:hover {
+//            box-shadow : 0 0 0 1px rgba(black, 0.1), 0 1px 4px 0 rgba(0, 0, 0, .1), 0 1px 5px 0 rgba(0, 0, 0, .06);
+//        }
+//    }
+
+}
