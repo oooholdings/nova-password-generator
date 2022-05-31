@@ -48,7 +48,13 @@ class PasswordGenerator extends Field
     protected function fillAttributeFromRequest( NovaRequest $request, $requestAttribute, $model, $attribute )
     {
         if ( $request->exists( $requestAttribute ) ) {
-            $model->{$attribute} = Hash::make( $request[ $requestAttribute ] );
+            if ( $request[ $requestAttribute ] ) {
+                if ( isset( $this->meta[ 'saveAsPlainText' ] ) && $this->meta[ 'saveAsPlainText' ] ) {
+                    $model->{$attribute} = $request[ $requestAttribute ];
+                } else {
+                    $model->{$attribute} = Hash::make( $request[ $requestAttribute ] );
+                }
+            }
         }
     }
 
@@ -497,6 +503,19 @@ class PasswordGenerator extends Field
         return $this->withMeta( [
             'redactValueOnIndex' => $redact,
             'redactionCharacter' => $character,
+        ] );
+    }
+
+    /**
+     * Disable hashing the provided value when filling attribute.
+     *
+     * @param bool $plainText
+     * @return PasswordGenerator
+     */
+    public function saveAsPlainText( bool $plainText = true ): PasswordGenerator
+    {
+        return $this->withMeta( [
+            'saveAsPlainText' => $plainText,
         ] );
     }
 }
