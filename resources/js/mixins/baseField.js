@@ -1,6 +1,7 @@
 export default {
     data() {
         return {
+            name:                    null,
             passwordLength:          this.field.passwordLength ?? 16,
             passwordTotalLength:     this.field.passwordTotalLength ?? null,
             passwordMin:             this.field.passwordMin ?? 8,
@@ -88,15 +89,15 @@ export default {
                 ],
             },
             tooltips:                {
-                showPassword:       { enabled: 'Hide Password', disabled: 'Show Password' },
+                showPassword:       { enabled: 'Hide Value', disabled: 'Show Value' },
                 uppercase:          { enabled: 'Exclude Uppercase', disabled: 'Include Uppercase' },
                 lowercase:          { enabled: 'Exclude Lowercase', disabled: 'Include Lowercase' },
                 numbers:            { enabled: 'Exclude Numbers', disabled: 'Include Numbers' },
                 symbols:            { enabled: 'Exclude Symbols', disabled: 'Include Symbols' },
                 decreaseLength:     'Decrease Length',
                 increaseLength:     'Increase Length',
-                copyPassword:       { dynamic: 'Copy Password', enabled: 'Copied!', disabled: 'Copy Password' },
-                regeneratePassword: 'Regenerate Password',
+                copyPassword:       { dynamic: 'Copy Value', enabled: 'Copied!', disabled: 'Copy Value' },
+                regeneratePassword: 'Regenerate Value',
             },
         };
     },
@@ -189,7 +190,7 @@ export default {
                 && this.excluded.lowercase
                 && this.excluded.numbers
                 && this.excluded.symbols ) {
-                Nova.error( 'Can\'t generate a password if no options are enabled.' );
+                Nova.error( 'Can\'t generate a value if no options are enabled.' );
                 return false;
             }
 
@@ -201,7 +202,7 @@ export default {
                 this.passwordLength += this.passwordIncrementSteps;
                 if ( this.regenerateOnToggle ) this.regeneratePassword();
             } else {
-                Nova.error( 'Maximum generated password length is: ' + this.passwordMax );
+                Nova.error( 'Maximum generated value length is: ' + this.passwordMax );
             }
         },
 
@@ -210,7 +211,7 @@ export default {
                 this.passwordLength -= this.passwordIncrementSteps;
                 if ( this.regenerateOnToggle ) this.regeneratePassword();
             } else {
-                Nova.error( 'Minimum generated password length is: ' + this.passwordMin );
+                Nova.error( 'Minimum generated value length is: ' + this.passwordMin );
             }
         },
 

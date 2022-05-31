@@ -67,10 +67,6 @@ ul.ooo\:pg-options {
 }
 
 &.ooo\:pg-toolbar-top {
-    & > :last-child {
-        display        : flex;
-        flex-direction : column-reverse;
-    }
 
     .ooo\:pg-password-input {
         &.ooo\:pg-with-extras {
@@ -79,6 +75,7 @@ ul.ooo\:pg-options {
     }
 
     ul.ooo\:pg-options {
+        display : flex;
 
         li.ooo\:pg-option {
             border-bottom-width : 0;
@@ -98,22 +95,22 @@ ul.ooo\:pg-options {
     }
 
     &.ooo\:pg-responsive {
+        display        : flex;
+        flex-direction : column-reverse;
 
-        & > :last-child {
-            @media (min-width : 640px) { flex-direction : row; }
+        @media (min-width : 640px) { flex-direction : row; }
 
-            @media (min-width : 768px) { flex-direction : column-reverse; }
+        @media (min-width : 768px) { flex-direction : column-reverse; }
 
-            @media (min-width : 1280px) { flex-direction : row; }
-        }
+        @media (min-width : 1280px) { flex-direction : row; }
 
         .ooo\:pg-password-input {
             &.ooo\:pg-with-extras {
-                @media (min-width : 640px) { border-radius : 0 0 0.25rem 0.25rem; }
+                @media (min-width : 640px) { border-radius : 0.25rem 0 0 0.25rem; }
 
-                @media (min-width : 768px) { border-radius : 0.25rem 0.25rem 0 0; }
+                @media (min-width : 768px) { border-radius : 0 0 0.25rem 0.25rem; }
 
-                @media (min-width : 1280px) { border-radius : 0 0 0.25rem 0.25rem; }
+                @media (min-width : 1280px) { border-radius : 0.25rem 0 0 0.25rem; }
             }
         }
 
@@ -126,6 +123,7 @@ ul.ooo\:pg-options {
 
                     &:first-child {
                         border-left-width         : 0;
+                        border-top-left-radius    : 0;
                         border-bottom-left-radius : 0;
                     }
 
@@ -139,13 +137,13 @@ ul.ooo\:pg-options {
                     border-bottom-width : 0;
 
                     &:first-child {
-                        border-left-width         : 1px;
-                        border-bottom-left-radius : 0.25rem;
+                        border-left-width      : 1px;
+                        border-top-left-radius : 0.25rem;
                     }
 
                     &:last-child {
-                        border-top-right-radius    : 0;
-                        border-bottom-right-radius : 0.25rem;
+                        border-bottom-right-radius : 0;
+                        border-top-right-radius    : 0.25rem;
                     }
                 }
 
@@ -154,6 +152,7 @@ ul.ooo\:pg-options {
 
                     &:first-child {
                         border-left-width         : 0;
+                        border-top-left-radius    : 0;
                         border-bottom-left-radius : 0;
                     }
 
@@ -176,10 +175,6 @@ ul.ooo\:pg-options {
 }
 
 &.ooo\:pg-toolbar-bottom {
-    & > :last-child {
-        display        : flex;
-        flex-direction : column;
-    }
 
     .ooo\:pg-password-input {
         &.ooo\:pg-with-extras {
@@ -188,6 +183,7 @@ ul.ooo\:pg-options {
     }
 
     ul.ooo\:pg-options {
+        display : flex;
 
         li.ooo\:pg-option {
             border-top-width  : 0;
@@ -208,14 +204,14 @@ ul.ooo\:pg-options {
     }
 
     &.ooo\:pg-responsive {
+        display        : flex;
+        flex-direction : column;
 
-        & > :last-child {
-            @media (min-width : 640px) { flex-direction : row; }
+        @media (min-width : 640px) { flex-direction : row; }
 
-            @media (min-width : 768px) { flex-direction : column; }
+        @media (min-width : 768px) { flex-direction : column; }
 
-            @media (min-width : 1280px) { flex-direction : row; }
-        }
+        @media (min-width : 1280px) { flex-direction : row; }
 
         .ooo\:pg-password-input {
             &.ooo\:pg-with-extras {

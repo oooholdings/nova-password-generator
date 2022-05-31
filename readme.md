@@ -283,6 +283,9 @@ public function fields()
             ->toolbarOnTop( bool $toolbarOnTop = true )
             // Disable the side toolbar, only displaying it above or below the password field
             ->disableSideToolbar( bool $disable = true ),
+            // Disable hashing the field value while saving to the database
+            // Always hash your users passwords! This is for other non-sensitive use-cases
+            ->saveAsPlainText( bool $plainText = true ),
 
     ];
 }

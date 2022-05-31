@@ -1,99 +1,100 @@
 <template>
     <DefaultField :field="field"
                   :errors="errors"
-                  :show-help-text="showHelpText"
-                  class="ooo:password-generator"
-                  :class="[ responsiveClasses, toolbarPositionClasses ]">
+                  :show-help-text="showHelpText">
         <template #field>
-            <input ref="passwordInput"
-                   :id="field.attribute"
-                   :type="showPassword ? 'text' : 'password'"
-                   class="w-full form-control form-input form-input-bordered ooo:pg-password-input"
-                   :class="[ errorClasses, passwordInputExtrasClasses ]"
-                   :placeholder="field.name"
-                   v-model="value" />
-            <ul v-if="!allExtrasHidden()"
-                class="ooo:pg-options">
-                <li v-if="!hideShowPasswordToggle"
-                    class="ooo:pg-option hover:text-primary-400 active:text-primary-600"
-                    :class="showPassword ? classes.enabled : classes.disabled"
-                    @click="toggleShowPassword"
-                    v-tooltip="showPassword ? tooltips.showPassword.enabled : tooltips.showPassword.disabled">
-                    <icon-hide v-if="showPassword"
-                               class="h-4 w-4"></icon-hide>
-                    <icon-show v-else
-                               class="h-4 w-4"></icon-show>
-                </li>
-                <li v-if="!hideOptionsToggles"
-                    class="ooo:pg-option ooo:pg-pill-wrapper"
-                    :class="classes.disabled">
-                    <ul class="ooo:pg-pill-options">
-                        <li class="ooo:pg-pill-option"
-                            :class="!excluded.uppercase ? classes.enabledPill : classes.disabledPill"
-                            @click="toggleUppercase"
-                            v-tooltip="!excluded.uppercase ? tooltips.uppercase.enabled : tooltips.uppercase.disabled"
-                            :style="[ borderRadiusRightStyles( !excluded.uppercase && !excluded.lowercase ) ]">
-                            <icon-uppercase class="h-4 w-4"></icon-uppercase>
-                        </li>
-                        <li class="ooo:pg-pill-option"
-                            :class="!excluded.lowercase ? classes.enabledPill : classes.disabledPill"
-                            @click="toggleLowercase"
-                            v-tooltip="!excluded.lowercase ? tooltips.lowercase.enabled : tooltips.lowercase.disabled"
-                            :style="[ borderRadiusLeftStyles( !excluded.uppercase && !excluded.lowercase ), borderRadiusRightStyles( !excluded.lowercase && !excluded.numbers ) ]">
-                            <icon-lowercase class="h-4 w-4"></icon-lowercase>
-                        </li>
-                        <li class="ooo:pg-pill-option"
-                            :class="!excluded.numbers ? classes.enabledPill : classes.disabledPill"
-                            @click="toggleNumbers"
-                            v-tooltip="!excluded.numbers ? tooltips.numbers.enabled : tooltips.numbers.disabled"
-                            :style="[ borderRadiusLeftStyles( !excluded.lowercase && !excluded.numbers ), borderRadiusRightStyles( !excluded.numbers && !excluded.symbols ) ]">
-                            <icon-hashtag class="h-4 w-4"></icon-hashtag>
-                        </li>
-                        <li class="ooo:pg-pill-option"
-                            :class="!excluded.symbols ? classes.enabledPill : classes.disabledPill"
-                            @click="toggleSymbols"
-                            v-tooltip="!excluded.symbols ? tooltips.symbols.enabled : tooltips.symbols.disabled"
-                            :style="[ borderRadiusLeftStyles( !excluded.numbers && !excluded.symbols ) ]">
-                            <icon-at class="h-4 w-4"></icon-at>
-                        </li>
-                    </ul>
-                </li>
-                <li v-if="!hidePasswordLengthInput"
-                    class="ooo:pg-option"
-                    :class="classes.disabled">
-                    <div class="ooo:pg-increment">
-                        <div v-tooltip="tooltips.decreaseLength">
-                            <icon-minus style="width: 12px; height: 12px;"
-                                        class="hover:text-primary-400 active:text-primary-600"
-                                        @click="decreaseLength"></icon-minus>
-                        </div>
+            <div class="ooo:password-generator"
+                 :class="[ responsiveClasses, toolbarPositionClasses ]">
+                <input ref="passwordInput"
+                       :id="field.attribute"
+                       :type="showPassword ? 'text' : 'password'"
+                       class="w-full form-control form-input form-input-bordered ooo:pg-password-input"
+                       :class="[ errorClasses, passwordInputExtrasClasses ]"
+                       :placeholder="field.name"
+                       v-model="value" />
+                <ul v-if="!allExtrasHidden()"
+                    class="ooo:pg-options">
+                    <li v-if="!hideShowPasswordToggle"
+                        class="ooo:pg-option hover:text-primary-400 active:text-primary-600"
+                        :class="showPassword ? classes.enabled : classes.disabled"
+                        @click="toggleShowPassword"
+                        v-tooltip="showPassword ? tooltips.showPassword.enabled : tooltips.showPassword.disabled">
+                        <icon-hide v-if="showPassword"
+                                   class="h-4 w-4"></icon-hide>
+                        <icon-show v-else
+                                   class="h-4 w-4"></icon-show>
+                    </li>
+                    <li v-if="!hideOptionsToggles"
+                        class="ooo:pg-option ooo:pg-pill-wrapper"
+                        :class="classes.disabled">
+                        <ul class="ooo:pg-pill-options">
+                            <li class="ooo:pg-pill-option"
+                                :class="!excluded.uppercase ? classes.enabledPill : classes.disabledPill"
+                                @click="toggleUppercase"
+                                v-tooltip="!excluded.uppercase ? tooltips.uppercase.enabled : tooltips.uppercase.disabled"
+                                :style="[ borderRadiusRightStyles( !excluded.uppercase && !excluded.lowercase ) ]">
+                                <icon-uppercase class="h-4 w-4"></icon-uppercase>
+                            </li>
+                            <li class="ooo:pg-pill-option"
+                                :class="!excluded.lowercase ? classes.enabledPill : classes.disabledPill"
+                                @click="toggleLowercase"
+                                v-tooltip="!excluded.lowercase ? tooltips.lowercase.enabled : tooltips.lowercase.disabled"
+                                :style="[ borderRadiusLeftStyles( !excluded.uppercase && !excluded.lowercase ), borderRadiusRightStyles( !excluded.lowercase && !excluded.numbers ) ]">
+                                <icon-lowercase class="h-4 w-4"></icon-lowercase>
+                            </li>
+                            <li class="ooo:pg-pill-option"
+                                :class="!excluded.numbers ? classes.enabledPill : classes.disabledPill"
+                                @click="toggleNumbers"
+                                v-tooltip="!excluded.numbers ? tooltips.numbers.enabled : tooltips.numbers.disabled"
+                                :style="[ borderRadiusLeftStyles( !excluded.lowercase && !excluded.numbers ), borderRadiusRightStyles( !excluded.numbers && !excluded.symbols ) ]">
+                                <icon-hashtag class="h-4 w-4"></icon-hashtag>
+                            </li>
+                            <li class="ooo:pg-pill-option"
+                                :class="!excluded.symbols ? classes.enabledPill : classes.disabledPill"
+                                @click="toggleSymbols"
+                                v-tooltip="!excluded.symbols ? tooltips.symbols.enabled : tooltips.symbols.disabled"
+                                :style="[ borderRadiusLeftStyles( !excluded.numbers && !excluded.symbols ) ]">
+                                <icon-at class="h-4 w-4"></icon-at>
+                            </li>
+                        </ul>
+                    </li>
+                    <li v-if="!hidePasswordLengthInput"
+                        class="ooo:pg-option"
+                        :class="classes.disabled">
+                        <div class="ooo:pg-increment">
+                            <div v-tooltip="tooltips.decreaseLength">
+                                <icon-minus style="width: 12px; height: 12px;"
+                                            class="hover:text-primary-400 active:text-primary-600"
+                                            @click="decreaseLength"></icon-minus>
+                            </div>
 
-                        <div class="bg-transparent hover:bg-white focus:bg-white rounded ooo:pg-password-length">
-                            {{ passwordLength }}
-                        </div>
+                            <div class="bg-transparent hover:bg-white focus:bg-white rounded ooo:pg-password-length">
+                                {{ passwordLength }}
+                            </div>
 
-                        <div v-tooltip="tooltips.increaseLength">
-                            <icon-plus style="width: 12px; height: 12px;"
-                                       class="hover:text-primary-400 active:text-primary-600"
-                                       @click="increaseLength"></icon-plus>
+                            <div v-tooltip="tooltips.increaseLength">
+                                <icon-plus style="width: 12px; height: 12px;"
+                                           class="hover:text-primary-400 active:text-primary-600"
+                                           @click="increaseLength"></icon-plus>
+                            </div>
                         </div>
-                    </div>
-                </li>
-                <li v-if="!hideCopyPasswordButton"
-                    class="ooo:pg-option hover:text-primary-400 active:text-primary-600"
-                    :class="classes.disabled"
-                    v-tooltip="tooltips.copyPassword.dynamic"
-                    @click="copyPassword">
-                    <icon-copy class="h-4 w-4"></icon-copy>
-                </li>
-                <li v-if="!hideRegenerateButton"
-                    class="ooo:pg-option hover:text-primary-400 active:text-primary-600"
-                    :class="classes.disabled"
-                    @click="regeneratePassword"
-                    v-tooltip="tooltips.regeneratePassword">
-                    <icon-refresh class="h-4 w-4"></icon-refresh>
-                </li>
-            </ul>
+                    </li>
+                    <li v-if="!hideCopyPasswordButton"
+                        class="ooo:pg-option hover:text-primary-400 active:text-primary-600"
+                        :class="classes.disabled"
+                        v-tooltip="tooltips.copyPassword.dynamic"
+                        @click="copyPassword">
+                        <icon-copy class="h-4 w-4"></icon-copy>
+                    </li>
+                    <li v-if="!hideRegenerateButton"
+                        class="ooo:pg-option hover:text-primary-400 active:text-primary-600"
+                        :class="classes.disabled"
+                        @click="regeneratePassword"
+                        v-tooltip="tooltips.regeneratePassword">
+                        <icon-refresh class="h-4 w-4"></icon-refresh>
+                    </li>
+                </ul>
+            </div>
         </template>
     </DefaultField>
 </template>
@@ -165,7 +166,7 @@ export default {
          * Set the initial, internal value for the field.
          */
         setInitialValue() {
-            this.value = '';
+            this.value = null;
         },
 
         /**
