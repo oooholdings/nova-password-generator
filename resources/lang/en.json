@@ -1,0 +1,21 @@
+{
+    "Uppercase": "Uppercase",
+    "Lowercase": "Lowercase",
+    "Numbers": "Numbers",
+    "Length": "Length",
+    "Symbols": "Symbols",
+    "Include :Option": "Include :Option",
+    "Exclude :Option": "Exclude :Option",
+    "Decrease :Option": "Decrease :Option",
+    "Increase :Option": "Increase :Option",
+    "Hide :Name": "Hide :Name",
+    "Show :Name": "Show :Name",
+    "Copy :Name": "Copy :Name",
+    "Copied!": "Copied!",
+    "Regenerate :Name": "Regenerate :Name",
+    ":Name has been copied.": ":Name has been copied.",
+    "Nothing to copy, type or generate a :name.": "Nothing to copy, type or generate a :name.",
+    "Can't generate a :name if no options are enabled.": "Can't generate a :name if no options are enabled.",
+    "Maximum generated :name length is: :length": "Maximum generated :name length is: :length",
+    "Minimum generated :name length is: :length": "Minimum generated :name length is: :length"
+}

@@ -74,7 +74,7 @@ export default {
             if ( this.field.value !== '' ) {
                 if ( navigator.clipboard && window.isSecureContext ) {
                     navigator.clipboard.writeText( this.field.value );
-                    Nova.success( 'Password has been copied.' );
+                    Nova.success( this.__( ':Name has been copied.', { name: this.__( this.field.name ) } ) );
                 } else {
                     let textArea   = document.createElement( 'textarea' );
                     textArea.value = this.field.value;
@@ -89,13 +89,15 @@ export default {
 
                     return new Promise( ( res, rej ) => {
                         document.execCommand( 'copy' ) ? res() : rej();
-                        Nova.success( 'Password has been copied.' );
+                        Nova.success( this.__( ':Name has been copied.', { name: this.__( this.field.name ) } ) );
 
                         textArea.remove();
                     } );
                 }
             } else {
-                Nova.error( 'No password to copy, type or generate a password.' );
+                Nova.error( this.__( 'Nothing to copy, type or generate a :name.', {
+                    name: this.__( this.field.name )
+                } ) );
             }
         },
     }
