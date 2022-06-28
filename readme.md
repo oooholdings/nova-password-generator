@@ -9,6 +9,7 @@
 
 1. [Introduction](#introduction)
 2. [Installation](#installation)
+   1. [Localization](#localization)
 3. [Usage](#usage)
     1. [Password Length](#password-length)
     2. [Prefix and Suffixes](#prefix-and-suffixes)
@@ -42,6 +43,14 @@ Install this package via composer:
 
 ``` bash
 $ composer require outofoffice/password-generator
+```
+
+### Localization
+
+Publish the package language files to your application's `resources/lang/vendor` directory:
+
+```
+php artisan vendor:publish --provider="OutOfOffice\PasswordGenerator\FieldServiceProvider"
 ```
 
 ## Usage

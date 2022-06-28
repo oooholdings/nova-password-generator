@@ -196,7 +196,7 @@ export default {
             if ( this.$refs.passwordInput.value !== '' ) {
                 if ( navigator.clipboard && window.isSecureContext ) {
                     navigator.clipboard.writeText( this.value );
-                    Nova.success( 'Password has been copied.' );
+                    Nova.success( this.__( ':Name has been copied.', { name: this.__( this.field.name ) } ) );
                 } else {
                     let changedType = false;
 
@@ -210,7 +210,7 @@ export default {
 
                     return new Promise( ( res, rej ) => {
                         document.execCommand( 'copy' ) ? res() : rej();
-                        Nova.success( 'Password has been copied.' );
+                        Nova.success( this.__( ':Name has been copied.', { name: this.__( this.field.name ) } ) );
 
                         if ( changedType ) {
                             this.$refs.passwordInput.setAttribute( 'type', 'password' );
@@ -218,7 +218,9 @@ export default {
                     } );
                 }
             } else {
-                Nova.error( 'No password to copy, type or generate a password.' );
+                Nova.error( this.__( 'Nothing to copy, type or generate a :name.', {
+                    name: this.__( this.field.name )
+                } ) );
             }
         },
     },

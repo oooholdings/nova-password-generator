@@ -1,4 +1,7 @@
+import { Localization } from 'laravel-nova';
+
 export default {
+    mixins: [ Localization ],
     data() {
         return {
             name:                    null,
@@ -89,15 +92,34 @@ export default {
                 ],
             },
             tooltips:                {
-                showPassword:       { enabled: 'Hide Value', disabled: 'Show Value' },
-                uppercase:          { enabled: 'Exclude Uppercase', disabled: 'Include Uppercase' },
-                lowercase:          { enabled: 'Exclude Lowercase', disabled: 'Include Lowercase' },
-                numbers:            { enabled: 'Exclude Numbers', disabled: 'Include Numbers' },
-                symbols:            { enabled: 'Exclude Symbols', disabled: 'Include Symbols' },
-                decreaseLength:     'Decrease Length',
-                increaseLength:     'Increase Length',
-                copyPassword:       { dynamic: 'Copy Value', enabled: 'Copied!', disabled: 'Copy Value' },
-                regeneratePassword: 'Regenerate Value',
+                showPassword:       {
+                    enabled:  this.__( 'Show :Name', { name: this.__( this.field.name ) } ),
+                    disabled: this.__( 'Hide :Name', { name: this.__( this.field.name ) } )
+                },
+                uppercase:          {
+                    enabled:  this.__( 'Exclude :Option', { option: this.__( 'Uppercase' ) } ),
+                    disabled: this.__( 'Include :Option', { option: this.__( 'Uppercase' ) } )
+                },
+                lowercase:          {
+                    enabled:  this.__( 'Exclude :Option', { option: this.__( 'Lowercase' ) } ),
+                    disabled: this.__( 'Include :Option', { option: this.__( 'Lowercase' ) } )
+                },
+                numbers:            {
+                    enabled:  this.__( 'Exclude :Option', { option: this.__( 'Numbers' ) } ),
+                    disabled: this.__( 'Include :Option', { option: this.__( 'Numbers' ) } )
+                },
+                symbols:            {
+                    enabled:  this.__( 'Exclude :Option', { option: this.__( 'Symbols' ) } ),
+                    disabled: this.__( 'Include :Option', { option: this.__( 'Symbols' ) } )
+                },
+                decreaseLength:     this.__( 'Decrease :Option', { option: this.__( 'Length' ) } ),
+                increaseLength:     this.__( 'Increase :Option', { option: this.__( 'Length' ) } ),
+                copyPassword:       {
+                    dynamic:  this.__( 'Copy :Name', { name: this.__( this.field.name ) } ),
+                    enabled:  this.__( 'Copied!' ),
+                    disabled: this.__( 'Copy :Name', { name: this.__( this.field.name ) } )
+                },
+                regeneratePassword: this.__( 'Regenerate :Name', { name: this.__( this.field.name ) } ),
             },
         };
     },
@@ -190,7 +212,9 @@ export default {
                 && this.excluded.lowercase
                 && this.excluded.numbers
                 && this.excluded.symbols ) {
-                Nova.error( 'Can\'t generate a value if no options are enabled.' );
+                Nova.error( this.__( 'Can\'t generate a :name if no options are enabled.', {
+                    name: this.__( this.field.name ),
+                } ) );
                 return false;
             }
 
@@ -202,7 +226,10 @@ export default {
                 this.passwordLength += this.passwordIncrementSteps;
                 if ( this.regenerateOnToggle ) this.regeneratePassword();
             } else {
-                Nova.error( 'Maximum generated value length is: ' + this.passwordMax );
+                Nova.error( this.__( 'Maximum generated :name length is: :length', {
+                    name:   this.__( this.field.name ),
+                    length: this.passwordMax,
+                } ) );
             }
         },
 
@@ -211,7 +238,10 @@ export default {
                 this.passwordLength -= this.passwordIncrementSteps;
                 if ( this.regenerateOnToggle ) this.regeneratePassword();
             } else {
-                Nova.error( 'Minimum generated value length is: ' + this.passwordMin );
+                Nova.error( this.__( 'Minimum generated :name length is: :length', {
+                    name:   this.__( this.field.name ),
+                    length: this.passwordMin
+                } ) );
             }
         },
 
