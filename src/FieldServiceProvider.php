@@ -22,15 +22,16 @@ class FieldServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishes( [
-            __DIR__ . '/../resources/lang/' => resource_path( 'lang/vendor/' . static::$name ),
-        ] );
+        $this->publishes([
+            __DIR__ . '/../resources/lang/' => resource_path('lang/vendor/'
+                . static::$name),
+        ]);
 
-        Nova::serving( function ( ServingNova $event ) {
-            Nova::script( static::$name, __DIR__ . '/../dist/js/field.js' );
-            Nova::style( static::$name, __DIR__ . '/../dist/css/field.css' );
-            Nova::translations( static::getTranslations() );
-        } );
+        Nova::serving(function (ServingNova $event) {
+            Nova::script(static::$name, __DIR__ . '/../dist/js/field.js');
+            Nova::style(static::$name, __DIR__ . '/../dist/css/field.css');
+            Nova::translations(static::getTranslations());
+        });
     }
 
     /**
@@ -40,16 +41,18 @@ class FieldServiceProvider extends ServiceProvider
      */
     private static function getTranslations(): array
     {
-        $translationFile = resource_path( 'lang/vendor/' . static::$name . '/' . app()->getLocale() . '.json' );
+        $translationFile = resource_path('lang/vendor/' . static::$name . '/'
+            . app()->getLocale() . '.json');
 
-        if ( !is_readable( $translationFile ) ) {
-            $translationFile = __DIR__ . '/../resources/lang/' . app()->getLocale() . '.json';
+        if ( ! is_readable($translationFile)) {
+            $translationFile = __DIR__ . '/../resources/lang/'
+                . app()->getLocale() . '.json';
 
-            if ( !is_readable( $translationFile ) ) {
+            if ( ! is_readable($translationFile)) {
                 return [];
             }
         }
 
-        return json_decode( file_get_contents( $translationFile ), true );
+        return json_decode(file_get_contents($translationFile), true);
     }
 }
