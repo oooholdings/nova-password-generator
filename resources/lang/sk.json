@@ -1,0 +1,21 @@
+{
+    "Uppercase": "Veľké písmena",
+    "Lowercase": "Malé písmena",
+    "Numbers": "Čísla",
+    "Length": "Počet znakov",
+    "Symbols": "Symboly",
+    "Include :Option": "Zahrnúť :Option",
+    "Exclude :Option": "Vylúčiť :Option",
+    "Decrease :Option": "Znížiť :Option",
+    "Increase :Option": "Zvýšiť :Option",
+    "Hide :Name": "Skryť :Name",
+    "Show :Name": "Zobraziť :Name",
+    "Copy :Name": "Kopírovať :Name",
+    "Copied!": "Skopírované!",
+    "Regenerate :Name": "Pregenerovať :Name",
+    ":Name has been copied.": ":Name bolo skopírované.",
+    "Nothing to copy, type or generate a :name.": "Nič na kopírovanie, písanie alebo generovanie :name.",
+    "Can't generate a :name if no options are enabled.": "Nie je možné vygenerovať :name, ak nie sú povolené žiadne možnosti.",
+    "Maximum generated :name length is: :length": "Maximálna vygenerovaná dĺžka :name je: :length",
+    "Minimum generated :name length is: :length": "Minimálna vygenerovaná dĺžka :name je: :length"
+}
