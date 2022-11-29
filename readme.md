@@ -9,16 +9,17 @@
 
 1. [Introduction](#introduction)
 2. [Installation](#installation)
-   1. [Localization](#localization)
+    1. [Localization](#localization)
 3. [Usage](#usage)
     1. [Password Length](#password-length)
     2. [Prefix and Suffixes](#prefix-and-suffixes)
     3. [Hide Toolbar Elements](#hide-toolbar-elements)
     4. [Customize Password Generation](#customize-password-generation)
-    5. [Operation Base Filling](#operation-base-filling)
+    5. [Operation Based Filling](#operation-based-filling)
     6. [Index and Detail View](#index-and-detail-view)
     7. [Other Methods](#other-methods)
 4. [Credits](#credits)
+    1. [Localizations](#localizations)
 5. [License](#license)
 
 ---
@@ -52,6 +53,9 @@ Publish the package language files to your application's `resources/lang/vendor`
 ```
 php artisan vendor:publish --provider="OutOfOffice\PasswordGenerator\FieldServiceProvider"
 ```
+
+If you would like to help contribute to this package, localizing the package into a language you know would be a huge
+help!
 
 ## Usage
 
@@ -114,9 +118,9 @@ public function fields()
 
 ### Prefix and Suffixes
 
-Want to customize the password a bit? You can use the `prefix()` and `suffix()` or `postfix()` methods to add a custom
-string to the beginning or end of a password. If you use the `totalLength()` method as well you will ensure the length
-of the password respects your prefix and/or suffix.
+Want to customize the password a bit? You can use the `prefix()` and/or `suffix()` methods to add a custom string to the
+beginning or end of a password. If you use the `totalLength()` method as well you will ensure the length of the password
+respects your prefix and/or suffix.
 
 ```php
 // in app/Nova/[Resource].php
@@ -198,21 +202,21 @@ public function fields()
             ->excludeSimilar( bool $exclude = true )
             // Excluded by default, you can exclude ambiguous symbols
             // (e.g. "{ } [ ] ( ) / \ ' " ` ~ , ; : . < >")
-            ->excludeAmbiguous( bool $exclude = true ),
+            ->excludeAmbiguous( bool $exclude = true )
             // One method to exclude multiple options, accepts the following:
             // 'uppercase' or 'upper', 'lowercase' or 'lower', 'numbers' or 'digits',
             // 'symbols' or 'special', 'similar', 'ambiguous'
-            ->excludeRules( array $excludeRules ),
+            ->excludeRules( array $excludeRules )
             // Customize the character list for the generated password, just pass
             // a string to this method, check PasswordGenerator class for more charlists
             // using this method auto-hides the option element from the toolbar
-            ->customCharlist( string $charlist = PasswordGenerator::BASE16_MOD )
+            ->customCharlist( string $charlist = PasswordGenerator::BASE16_MOD ),
 
     ];
 }
 ```
 
-### Operation Base Filling
+### Operation Based Filling
 
 Sometimes you may want to autofill the password when the page is loaded, but usually you don't want to update the
 passwords when you're editing a resource. But we still have methods for both use-cases.
@@ -240,9 +244,9 @@ public function fields()
 
 ### Index and Detail View
 
-You can now show the value of your field on the index or detail pages, usually you wouldn't want to do this
-if you're using this field for passwords. But with other use-cases like tokens and such, this would be great.
-Since there's a detail field now, you can use this within the resource preview modal.
+You can now show the value of your field on the index or detail pages, usually you wouldn't want to do this if you're
+using this field for passwords. But with other use-cases like tokens and such, this would be great. Since there's a
+detail field now, you can use this within the resource preview modal.
 
 ```php
 // in app/Nova/[Resource].php
@@ -291,7 +295,7 @@ public function fields()
             // Should the toolbar be placed above the password field
             ->toolbarOnTop( bool $toolbarOnTop = true )
             // Disable the side toolbar, only displaying it above or below the password field
-            ->disableSideToolbar( bool $disable = true ),
+            ->disableSideToolbar( bool $disable = true )
             // Disable hashing the field value while saving to the database
             // Always hash your users passwords! This is for other non-sensitive use-cases
             ->saveAsPlainText( bool $plainText = true ),
@@ -305,6 +309,11 @@ public function fields()
 - [Out of Office][link-company]
 - [Miguel Batres][link-author]
 - [Package Banner][link-beyondcode-banners] by BeyondCode
+
+### Localizations:
+
+- [@wamesro](https://github.com/wamesro)
+  provided [Slovak](https://github.com/oooholdings/nova-password-generator/pull/17)
 
 ## License
 
