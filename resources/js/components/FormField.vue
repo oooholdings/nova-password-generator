@@ -18,7 +18,7 @@
                         class="ooo:pg-option hover:text-primary-400 active:text-primary-600"
                         :class="showPassword ? classes.enabled : classes.disabled"
                         @click="toggleShowPassword"
-                        v-tooltip="showPassword ? tooltips.showPassword.enabled : tooltips.showPassword.disabled">
+                        v-tooltip="showPassword ? tooltips.showPassword.disabled : tooltips.showPassword.enabled">
                         <icon-hide v-if="showPassword"
                                    class="h-4 w-4"></icon-hide>
                         <icon-show v-else

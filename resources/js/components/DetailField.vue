@@ -19,11 +19,11 @@
                     <div v-if="!showValueOnDetail || blurValueOnDetail || redactValueOnDetail">
                         <icon-show v-if="hidden && !hideShowPasswordToggle"
                                    class="h-4 w-4"
-                                   v-tooltip="tooltips.showPassword.disabled"
+                                   v-tooltip="tooltips.showPassword.enabled"
                                    @click="showValue"></icon-show>
                         <icon-hide v-else
                                    class="h-4 w-4"
-                                   v-tooltip="tooltips.showPassword.enabled"
+                                   v-tooltip="tooltips.showPassword.disabled"
                                    @click="hideValue"></icon-hide>
                     </div>
 
