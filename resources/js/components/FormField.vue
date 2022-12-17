@@ -166,7 +166,7 @@ export default {
          * Set the initial, internal value for the field.
          */
         setInitialValue() {
-            this.value = null;
+            this.value = this.field.value;
         },
 
         /**
