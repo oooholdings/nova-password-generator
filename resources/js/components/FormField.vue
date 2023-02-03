@@ -102,16 +102,16 @@
 <script>
 import { FormField, HandlesValidationErrors } from 'laravel-nova';
 import baseField from '../mixins/baseField';
-import hideIcon from './icons/hideIcon';
-import showIcon from './icons/showIcon';
-import uppercaseIcon from './icons/uppercaseIcon';
-import lowercaseIcon from './icons/lowercaseIcon';
-import hashtagIcon from './icons/hashtagIcon';
 import atIcon from './icons/atIcon';
+import copyIcon from './icons/copyIcon';
+import hashtagIcon from './icons/hashtagIcon';
+import hideIcon from './icons/hideIcon';
+import lowercaseIcon from './icons/lowercaseIcon';
 import minusIcon from './icons/minusIcon';
 import plusIcon from './icons/plusIcon';
-import copyIcon from './icons/copyIcon';
 import refreshIcon from './icons/refreshIcon';
+import showIcon from './icons/showIcon';
+import uppercaseIcon from './icons/uppercaseIcon';
 
 export default {
     mixins:     [ FormField, HandlesValidationErrors, baseField ],
@@ -130,12 +130,12 @@ export default {
     },
     data() {
         return {
-            status:                  null,
-            toolbarOnTop:            this.field.toolbarOnTop ?? false,
-            responsive:              this.field.responsive ?? true,
-            showPassword:            this.field.showPassword ?? false,
-            fillOnCreate:            this.field.fillOnCreate ?? false,
-            fillOnUpdate:            this.field.fillOnUpdate ?? false,
+            status:       null,
+            toolbarOnTop: this.field.toolbarOnTop ?? false,
+            responsive:   this.field.responsive ?? true,
+            showPassword: this.field.showPassword ?? false,
+            fillOnCreate: this.field.fillOnCreate ?? false,
+            fillOnUpdate: this.field.fillOnUpdate ?? false,
         };
     },
     mounted() {
@@ -166,7 +166,9 @@ export default {
          * Set the initial, internal value for the field.
          */
         setInitialValue() {
-            this.value = this.field.value;
+            this.value = this.showValueOnUpdate
+                ? this.field.value
+                : null;
         },
 
         /**
@@ -219,10 +221,10 @@ export default {
                 }
             } else {
                 Nova.error( this.__( 'Nothing to copy, type or generate a :name.', {
-                    name: this.__( this.field.name )
+                    name: this.__( this.field.name ),
                 } ) );
             }
         },
     },
-}
+};
 </script>

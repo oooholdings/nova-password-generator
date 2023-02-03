@@ -503,6 +503,20 @@ class PasswordGenerator extends Field
     }
 
     /**
+     * Show the field value by default on update view.
+     *
+     * @param bool $show
+     *
+     * @return PasswordGenerator
+     */
+    public function showValueOnUpdate(bool $show = true): PasswordGenerator
+    {
+        return $this->withMeta([
+            'showValueOnUpdate' => $show,
+        ]);
+    }
+
+    /**
      * Blur the field value by default on detail view.
      *
      * @param bool $blur
