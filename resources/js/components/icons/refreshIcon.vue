@@ -12,6 +12,6 @@
 
 <script>
 export default {
-    name: 'refreshIcon'
-}
+    name: 'refreshIcon',
+};
 </script>

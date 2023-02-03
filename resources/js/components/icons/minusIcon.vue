@@ -12,6 +12,6 @@
 
 <script>
 export default {
-    name: 'minusIcon'
-}
+    name: 'minusIcon',
+};
 </script>

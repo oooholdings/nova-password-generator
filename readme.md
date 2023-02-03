@@ -259,10 +259,11 @@ public function fields()
 
         PasswordGenerator::make( 'Personal Access Token' )
             // Show the password as plain-text by default on the respective pages
-            // These two methods work well with the others as they just show the password
+            // These three methods work well with the others as they just show the field value
             // on page load, you can use the other methods below for the styling
             ->showValueOnDetail( bool $show = true )
             ->showValueOnIndex( bool $show = true )
+            ->showValueOnUpdate( bool $show = true )
             // Hide the password with a blur effect on the respective pages
             ->blurValueOnDetail( bool $show = true )
             ->blurValueOnIndex( bool $show = true )

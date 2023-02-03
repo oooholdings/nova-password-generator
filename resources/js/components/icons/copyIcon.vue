@@ -12,6 +12,6 @@
 
 <script>
 export default {
-    name: 'copyIcon'
-}
+    name: 'copyIcon',
+};
 </script>

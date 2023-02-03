@@ -13,6 +13,6 @@
 
 <script>
 export default {
-    name: 'uppercaseIcon'
-}
+    name: 'uppercaseIcon',
+};
 </script>
