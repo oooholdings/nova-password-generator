@@ -15,6 +15,6 @@
 
 <script>
 export default {
-    name: 'lowercaseIcon'
-}
+    name: 'lowercaseIcon',
+};
 </script>

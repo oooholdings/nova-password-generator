@@ -12,6 +12,6 @@
 
 <script>
 export default {
-    name: 'hashtagIcon'
-}
+    name: 'hashtagIcon',
+};
 </script>

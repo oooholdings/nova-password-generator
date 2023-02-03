@@ -40,9 +40,9 @@
 
 <script>
 import baseField from '../mixins/baseField';
+import copyIcon from './icons/copyIcon';
 import hideIcon from './icons/hideIcon';
 import showIcon from './icons/showIcon';
-import copyIcon from './icons/copyIcon';
 
 export default {
     mixins:     [ baseField ],
@@ -96,10 +96,10 @@ export default {
                 }
             } else {
                 Nova.error( this.__( 'Nothing to copy, type or generate a :name.', {
-                    name: this.__( this.field.name )
+                    name: this.__( this.field.name ),
                 } ) );
             }
         },
-    }
-}
+    },
+};
 </script>

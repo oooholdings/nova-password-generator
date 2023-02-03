@@ -12,6 +12,6 @@
 
 <script>
 export default {
-    name: 'atIcon'
-}
+    name: 'atIcon',
+};
 </script>
