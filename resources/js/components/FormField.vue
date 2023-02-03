@@ -140,7 +140,7 @@ export default {
     },
     mounted() {
         if ( this.fillOnUpdate && this.status === 'update' ) this.regeneratePassword();
-        if ( this.fillOnCreate && this.status === 'created' ) this.regeneratePassword();
+        if ( this.fillOnCreate && this.status === 'create' ) this.regeneratePassword();
     },
     computed: {
         responsiveClasses() {
