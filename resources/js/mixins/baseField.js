@@ -19,6 +19,7 @@ export default {
             showValueOnDetail:       this.field.showValueOnDetail ?? false,
             showValueOnIndex:        this.field.showValueOnIndex ?? false,
             blurValueOnDetail:       this.field.blurValueOnDetail ?? false,
+            showValueOnUpdate:       this.field.showValueOnUpdate ?? false,
             blurValueOnIndex:        this.field.blurValueOnIndex ?? false,
             redactValueOnDetail:     this.field.redactValueOnDetail ?? false,
             redactValueOnIndex:      this.field.redactValueOnIndex ?? false,
@@ -57,7 +58,7 @@ export default {
                     'dark:text-gray-900',
                     'font-bold',
                     'text-sm',
-                    'ooo:pg-enabled'
+                    'ooo:pg-enabled',
                 ],
                 disabled:     [
                     'border',
@@ -67,7 +68,7 @@ export default {
                     'dark:bg-gray-800',
                     'font-bold',
                     'text-sm',
-                    'ooo:pg-disabled'
+                    'ooo:pg-disabled',
                 ],
                 enabledPill:  [
                     'bg-primary-500',
@@ -83,41 +84,41 @@ export default {
                     // 'dark:text-white',
                     'font-bold',
                     'text-sm',
-                    'ooo:pg-enabled'
+                    'ooo:pg-enabled',
                 ],
                 disabledPill: [
                     'font-bold',
                     'text-sm',
-                    'ooo:pg-disabled'
+                    'ooo:pg-disabled',
                 ],
             },
             tooltips:                {
                 showPassword:       {
                     enabled:  this.__( 'Show :Name', { name: this.__( this.field.name ) } ),
-                    disabled: this.__( 'Hide :Name', { name: this.__( this.field.name ) } )
+                    disabled: this.__( 'Hide :Name', { name: this.__( this.field.name ) } ),
                 },
                 uppercase:          {
                     enabled:  this.__( 'Exclude :Option', { option: this.__( 'Uppercase' ) } ),
-                    disabled: this.__( 'Include :Option', { option: this.__( 'Uppercase' ) } )
+                    disabled: this.__( 'Include :Option', { option: this.__( 'Uppercase' ) } ),
                 },
                 lowercase:          {
                     enabled:  this.__( 'Exclude :Option', { option: this.__( 'Lowercase' ) } ),
-                    disabled: this.__( 'Include :Option', { option: this.__( 'Lowercase' ) } )
+                    disabled: this.__( 'Include :Option', { option: this.__( 'Lowercase' ) } ),
                 },
                 numbers:            {
                     enabled:  this.__( 'Exclude :Option', { option: this.__( 'Numbers' ) } ),
-                    disabled: this.__( 'Include :Option', { option: this.__( 'Numbers' ) } )
+                    disabled: this.__( 'Include :Option', { option: this.__( 'Numbers' ) } ),
                 },
                 symbols:            {
                     enabled:  this.__( 'Exclude :Option', { option: this.__( 'Symbols' ) } ),
-                    disabled: this.__( 'Include :Option', { option: this.__( 'Symbols' ) } )
+                    disabled: this.__( 'Include :Option', { option: this.__( 'Symbols' ) } ),
                 },
                 decreaseLength:     this.__( 'Decrease :Option', { option: this.__( 'Length' ) } ),
                 increaseLength:     this.__( 'Increase :Option', { option: this.__( 'Length' ) } ),
                 copyPassword:       {
                     dynamic:  this.__( 'Copy :Name', { name: this.__( this.field.name ) } ),
                     enabled:  this.__( 'Copied!' ),
-                    disabled: this.__( 'Copy :Name', { name: this.__( this.field.name ) } )
+                    disabled: this.__( 'Copy :Name', { name: this.__( this.field.name ) } ),
                 },
                 regeneratePassword: this.__( 'Regenerate :Name', { name: this.__( this.field.name ) } ),
             },
@@ -203,8 +204,11 @@ export default {
 
         repeatString( string, count ) {
             if ( count <= 0 ) return '';
-            if ( count === 1 ) return string;
-            else return string + this.repeatString( string, count - 1 );
+            if ( count === 1 ) {
+                return string;
+            } else {
+                return string + this.repeatString( string, count - 1 );
+            }
         },
 
         validateToggles() {
@@ -240,7 +244,7 @@ export default {
             } else {
                 Nova.error( this.__( 'Minimum generated :name length is: :length', {
                     name:   this.__( this.field.name ),
-                    length: this.passwordMin
+                    length: this.passwordMin,
                 } ) );
             }
         },

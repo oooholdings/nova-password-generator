@@ -12,6 +12,6 @@
 
 <script>
 export default {
-    name: 'hideIcon'
-}
+    name: 'hideIcon',
+};
 </script>

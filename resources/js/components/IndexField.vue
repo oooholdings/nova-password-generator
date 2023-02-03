@@ -18,8 +18,8 @@
 import baseField from '../mixins/baseField';
 
 export default {
-    mixins:     [ baseField ],
-    props:      [ 'resourceName', 'field' ],
+    mixins: [ baseField ],
+    props:  [ 'resourceName', 'field' ],
     data() {
         return {
             hidden: !this.field.showValueOnIndex,
@@ -28,19 +28,19 @@ export default {
     mounted() {
         console.log( this.field );
     },
-}
+};
 </script>
 
 <style lang="scss">
 .ooo\:pg-value {
-    position        : relative;
-    display         : inline-flex;
-    justify-content : center;
-    align-items     : center;
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 
     .ooo\:pg-value-blurred {
-        filter      : blur(3px);
-        user-select : none;
+        filter: blur(3px);
+        user-select: none;
     }
 }
 </style>

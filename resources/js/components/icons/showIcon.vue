@@ -15,6 +15,6 @@
 
 <script>
 export default {
-    name: 'showIcon'
-}
+    name: 'showIcon',
+};
 </script>
